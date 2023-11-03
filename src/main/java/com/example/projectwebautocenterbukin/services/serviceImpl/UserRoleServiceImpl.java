@@ -1,12 +1,9 @@
 package com.example.projectwebautocenterbukin.services.serviceImpl;
 
-import com.example.projectwebautocenterbukin.dtos.ModelDto;
-import com.example.projectwebautocenterbukin.dtos.UserDto;
-import com.example.projectwebautocenterbukin.dtos.UserRoleDto;
+import com.example.projectwebautocenterbukin.services.dtos.UserRoleDto;
 import com.example.projectwebautocenterbukin.models.UserRole;
 import com.example.projectwebautocenterbukin.repositories.UserRoleRepository;
 import com.example.projectwebautocenterbukin.services.UserRoleService;
-import com.example.projectwebautocenterbukin.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

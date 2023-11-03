@@ -1,4 +1,4 @@
-package com.example.projectwebautocenterbukin.dtos;
+package com.example.projectwebautocenterbukin.services.dtos;
 
 import com.example.projectwebautocenterbukin.models.BaseEntity;
 import com.example.projectwebautocenterbukin.models.enums.Role;

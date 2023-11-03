@@ -1,8 +1,7 @@
 package com.example.projectwebautocenterbukin.services.serviceImpl;
 
-import com.example.projectwebautocenterbukin.dtos.OfferDto;
+import com.example.projectwebautocenterbukin.services.dtos.OfferDto;
 import com.example.projectwebautocenterbukin.models.Offer;
-import com.example.projectwebautocenterbukin.repositories.BrandRepository;
 import com.example.projectwebautocenterbukin.repositories.OfferRepository;
 import com.example.projectwebautocenterbukin.services.OfferService;
 import org.modelmapper.ModelMapper;

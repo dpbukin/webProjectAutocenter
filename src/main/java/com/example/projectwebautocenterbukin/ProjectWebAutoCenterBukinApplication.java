@@ -8,7 +8,5 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class ProjectWebAutoCenterBukinApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProjectWebAutoCenterBukinApplication.class, args);
-
     }
-
 }

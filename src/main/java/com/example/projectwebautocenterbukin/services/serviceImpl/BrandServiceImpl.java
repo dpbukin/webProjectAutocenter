@@ -1,6 +1,6 @@
 package com.example.projectwebautocenterbukin.services.serviceImpl;
 
-import com.example.projectwebautocenterbukin.dtos.BrandDto;
+import com.example.projectwebautocenterbukin.services.dtos.BrandDto;
 import com.example.projectwebautocenterbukin.models.Brand;
 import com.example.projectwebautocenterbukin.services.BrandService;
 import org.modelmapper.ModelMapper;

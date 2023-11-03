@@ -1,28 +1,30 @@
-package com.example.projectwebautocenterbukin.dtos;
+package com.example.projectwebautocenterbukin.services.dtos;
 
 import com.example.projectwebautocenterbukin.models.BaseEntity;
+import com.example.projectwebautocenterbukin.models.BaseEntityCreatedModified;
 import com.example.projectwebautocenterbukin.models.enums.Engine;
 import com.example.projectwebautocenterbukin.models.enums.Transmission;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
-public class OfferDto extends BaseEntity {
+public class OfferDto extends BaseEntityCreatedModified {
     private String description;
     private Engine engine;
     private String image_url;
     private int mileage;
-    private double price;
+    private BigDecimal price;
     private Transmission transmission;
     private int years;
     private int count;
-    private java.sql.Date created;
-    private java.sql.Date modified;
+    private LocalDateTime created;
+    private LocalDateTime modified;
     private ModelDto modelDto;
-    private UserDto seller;
+    private UserDto sellerDto;
 
 
-    public OfferDto(String description, Engine engine, String image_url, int mileage, double price, Transmission transmission, int years, int count, Date created, Date modified, ModelDto modelDto, UserDto seller) {
+    public OfferDto(String description, Engine engine, String image_url, int mileage, BigDecimal price, Transmission transmission, int years, int count, LocalDateTime created, LocalDateTime modified, ModelDto modelDto, UserDto sellerDto) {
         this.description = description;
         this.engine = engine;
         this.image_url = image_url;
@@ -34,7 +36,7 @@ public class OfferDto extends BaseEntity {
         this.created = created;
         this.modified = modified;
         this.modelDto = modelDto;
-        this.seller = seller;
+        this.sellerDto = sellerDto;
     }
 
     public OfferDto() {
@@ -72,11 +74,11 @@ public class OfferDto extends BaseEntity {
         this.mileage = mileage;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -104,19 +106,23 @@ public class OfferDto extends BaseEntity {
         this.count = count;
     }
 
-    public Date getCreated() {
+    @Override
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    @Override
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
-    public Date getModified() {
+    @Override
+    public LocalDateTime getModified() {
         return modified;
     }
 
-    public void setModified(Date modified) {
+    @Override
+    public void setModified(LocalDateTime modified) {
         this.modified = modified;
     }
 
@@ -128,12 +134,12 @@ public class OfferDto extends BaseEntity {
         this.modelDto = modelDto;
     }
 
-    public UserDto getSeller() {
-        return seller;
+    public UserDto getSellerDto() {
+        return sellerDto;
     }
 
-    public void setSeller(UserDto seller) {
-        this.seller = seller;
+    public void setSellerDto(UserDto sellerDto) {
+        this.sellerDto = sellerDto;
     }
 
     @Override
@@ -150,7 +156,7 @@ public class OfferDto extends BaseEntity {
                 ", created=" + created +
                 ", modified=" + modified +
                 ", modelDto=" + modelDto +
-                ", seller=" + seller +
+                ", seller=" + sellerDto +
                 '}';
     }
 }

@@ -1,20 +1,20 @@
-package com.example.projectwebautocenterbukin.dtos;
+package com.example.projectwebautocenterbukin.services.dtos;
 
-import com.example.projectwebautocenterbukin.models.BaseEntity;
+import com.example.projectwebautocenterbukin.models.BaseEntityCreatedModified;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
-public class BrandDto extends BaseEntity {
+public class BrandDto extends BaseEntityCreatedModified {
     private String name;
-    private java.sql.Date created;
-    private java.sql.Date modified;
+    private LocalDateTime created;
+    private LocalDateTime modified;
 
-    public BrandDto(String name, Date created, Date modified) {
+    public BrandDto(String name, LocalDateTime created, LocalDateTime modified) {
         this.name = name;
         this.created = created;
         this.modified = modified;
     }
-
 
     public BrandDto() {
     }
@@ -27,19 +27,19 @@ public class BrandDto extends BaseEntity {
         this.name = name;
     }
 
-    public Date getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
-    public Date getModified() {
+    public LocalDateTime getModified() {
         return modified;
     }
 
-    public void setModified(Date modified) {
+    public void setModified(LocalDateTime modified) {
         this.modified = modified;
     }
 

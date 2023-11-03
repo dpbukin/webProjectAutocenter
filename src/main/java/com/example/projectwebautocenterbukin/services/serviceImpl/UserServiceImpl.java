@@ -1,6 +1,6 @@
 package com.example.projectwebautocenterbukin.services.serviceImpl;
 
-import com.example.projectwebautocenterbukin.dtos.UserDto;
+import com.example.projectwebautocenterbukin.services.dtos.UserDto;
 import com.example.projectwebautocenterbukin.models.User;
 import com.example.projectwebautocenterbukin.repositories.UserRepository;
 import com.example.projectwebautocenterbukin.services.UserService;

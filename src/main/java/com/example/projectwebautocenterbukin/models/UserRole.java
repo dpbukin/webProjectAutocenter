@@ -8,12 +8,8 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class UserRole extends BaseEntity {
-    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "role")
     private Role role;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Set<User> user;
 
     public UserRole(String name, Role role) {
@@ -23,7 +19,7 @@ public class UserRole extends BaseEntity {
 
     public UserRole() {
     }
-
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -31,7 +27,7 @@ public class UserRole extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-
+    @Column(name = "role")
     public Role getRole() {
         return role;
     }
@@ -39,7 +35,7 @@ public class UserRole extends BaseEntity {
     public void setRole(Role role) {
         this.role = role;
     }
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
     public Set<User> getUser() {
         return user;
     }

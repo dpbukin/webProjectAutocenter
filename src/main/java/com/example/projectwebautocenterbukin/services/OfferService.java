@@ -1,7 +1,6 @@
 package com.example.projectwebautocenterbukin.services;
 
-import com.example.projectwebautocenterbukin.dtos.OfferDto;
-import com.example.projectwebautocenterbukin.models.Offer;
+import com.example.projectwebautocenterbukin.services.dtos.OfferDto;
 
 import java.util.List;
 

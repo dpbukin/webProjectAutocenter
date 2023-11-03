@@ -1,23 +1,23 @@
-package com.example.projectwebautocenterbukin.dtos;
+package com.example.projectwebautocenterbukin.services.dtos;
 
 import com.example.projectwebautocenterbukin.models.BaseEntity;
+import com.example.projectwebautocenterbukin.models.BaseEntityCreatedModified;
 import com.example.projectwebautocenterbukin.models.enums.Category;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Date;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
-public class ModelDto extends BaseEntity {
+public class ModelDto extends BaseEntityCreatedModified {
     private String name;
     private Category category;
     private String imageUrl;
     private int startYear;
     private int endYear;
-    private java.sql.Date created;
-    private java.sql.Date modified;
+    private LocalDateTime created;
+    private LocalDateTime modified;
     private BrandDto brandDto;
 
-    public ModelDto(String name, Category category, String imageUrl, int startYear, int endYear, Date created, Date modified, BrandDto brandDto) {
+    public ModelDto(String name, Category category, String imageUrl, int startYear, int endYear, LocalDateTime created, LocalDateTime modified, BrandDto brandDto) {
         this.name = name;
         this.category = category;
         this.imageUrl = imageUrl;
@@ -71,19 +71,19 @@ public class ModelDto extends BaseEntity {
         this.endYear = endYear;
     }
 
-    public Date getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
-    public Date getModified() {
+    public LocalDateTime getModified() {
         return modified;
     }
 
-    public void setModified(Date modified) {
+    public void setModified(LocalDateTime modified) {
         this.modified = modified;
     }
 

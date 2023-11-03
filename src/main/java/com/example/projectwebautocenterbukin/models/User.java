@@ -4,51 +4,35 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy=InheritanceType.JOINED)
-public class User extends BaseEntity {
-    @Column(name = "username")
+public class User extends BaseEntityCreatedModified {
     private String username;
-    @Column(name = "password")
     private String password;
-    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "is_active", nullable = false)
     private boolean isActive;
-    @Column(name = "image_url")
     private String imageUrl;
-    @Column(name = "created")
-    private java.sql.Date created;
-    @Column(name = "modified")
-    private java.sql.Date modified;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Set<Offer> offers;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable=false)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private UserRole role;
 
-    public User(String username, String password, String firstName, String lastName, boolean isActive, String imageUrl, Date created, Date modified) {
+    public User(String username, String password, String firstName, String lastName, boolean isActive, String imageUrl) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.isActive = isActive;
         this.imageUrl = imageUrl;
-        this.created = created;
-        this.modified = modified;
     }
 
     public User() {
     }
 
+    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -56,7 +40,7 @@ public class User extends BaseEntity {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -64,7 +48,7 @@ public class User extends BaseEntity {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    @Column(name = "first_name")
     public String getFirstName() {
         return firstName;
     }
@@ -72,23 +56,14 @@ public class User extends BaseEntity {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    @Column(name = "last_name")
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String last_name) {
         this.lastName = last_name;
     }
-
-    public boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
+    @Column(name = "image_url")
     public String getImageUrl() {
         return imageUrl;
     }
@@ -96,23 +71,15 @@ public class User extends BaseEntity {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
-    public Date getCreated() {
-        return created;
+    @Column(name = "is_active", nullable = false)
+    public boolean getIsActive() {
+        return isActive;
     }
-
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setIsActive(boolean active) {
+        isActive = active;
     }
-
-    public Date getModified() {
-        return modified;
-    }
-
-    public void setModified(Date modified) {
-        this.modified = modified;
-    }
-
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable=false)
     public UserRole getRole() {
         return role;
     }
@@ -120,7 +87,7 @@ public class User extends BaseEntity {
     public void setRole(UserRole role) {
         this.role = role;
     }
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
     public Set<Offer> getOffers() {
         return offers;
     }

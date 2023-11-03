@@ -1,22 +1,23 @@
-package com.example.projectwebautocenterbukin.dtos;
+package com.example.projectwebautocenterbukin.services.dtos;
 
 import com.example.projectwebautocenterbukin.models.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.example.projectwebautocenterbukin.models.BaseEntityCreatedModified;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
-public class UserDto extends BaseEntity {
+public class UserDto extends BaseEntityCreatedModified {
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private boolean isActive;
     private String imageUrl;
-    private java.sql.Date created;
-    private java.sql.Date modified;
+    private LocalDateTime created;
+    private LocalDateTime modified;
     private UserRoleDto userRoleDto;
 
-    public UserDto(String username, String password, String firstName, String lastName, boolean isActive, String imageUrl, Date created, Date modified, UserRoleDto userRoleDto) {
+    public UserDto(String username, String password, String firstName, String lastName, boolean isActive, String imageUrl, LocalDateTime created, LocalDateTime modified, UserRoleDto userRoleDto) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -79,21 +80,26 @@ public class UserDto extends BaseEntity {
         this.imageUrl = imageUrl;
     }
 
-    public Date getCreated() {
+    @Override
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    @Override
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
-    public Date getModified() {
+    @Override
+    public LocalDateTime getModified() {
         return modified;
     }
 
-    public void setModified(Date modified) {
+    @Override
+    public void setModified(LocalDateTime modified) {
         this.modified = modified;
     }
+
     public UserRoleDto getUserRoleDto() {
         return userRoleDto;
     }

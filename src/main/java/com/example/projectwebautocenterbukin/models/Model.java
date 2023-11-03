@@ -2,49 +2,32 @@ package com.example.projectwebautocenterbukin.models;
 
 import com.example.projectwebautocenterbukin.models.enums.Category;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
-
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "models")
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Model extends BaseEntity {
-
-    @Column(name = "name")
+public class Model extends BaseEntityCreatedModified {
     private String name;
-    @Column(name = "category")
     private Category category;
-    @Column(name = "image_url")
     private String imageUrl;
-    @Column(name = "start_year")
     private int startYear;
-    @Column(name = "end_year")
     private int endYear;
-    @Column(name = "created")
-    private java.sql.Date created;
-    @Column(name = "modified")
-    private java.sql.Date modified;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "model")
     private Set<Offer> offers;
-    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
-    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable=false)
     private Brand brand;
-
-    public Model(String name, Category category, String imageUrl, int startYear, int endYear, Date created, Date modified) {
+    public Model(String name, Category category, String imageUrl, int startYear, int endYear) {
         this.name = name;
         this.category = category;
         this.imageUrl = imageUrl;
         this.startYear = startYear;
         this.endYear = endYear;
-        this.created = created;
-        this.modified = modified;
     }
 
     public Model() {
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -52,7 +35,7 @@ public class Model extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-
+    @Column(name = "category")
     public Category getCategory() {
         return category;
     }
@@ -60,7 +43,7 @@ public class Model extends BaseEntity {
     public void setCategory(Category category) {
         this.category = category;
     }
-
+    @Column(name = "image_url")
     public String getImageUrl() {
         return imageUrl;
     }
@@ -68,7 +51,7 @@ public class Model extends BaseEntity {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
+    @Column(name = "start_year")
     public int getStartYear() {
         return startYear;
     }
@@ -76,7 +59,7 @@ public class Model extends BaseEntity {
     public void setStartYear(int startYear) {
         this.startYear = startYear;
     }
-
+    @Column(name = "end_year")
     public int getEndYear() {
         return endYear;
     }
@@ -84,23 +67,7 @@ public class Model extends BaseEntity {
     public void setEndYear(int endYear) {
         this.endYear = endYear;
     }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getModified() {
-        return modified;
-    }
-
-    public void setModified(Date modified) {
-        this.modified = modified;
-    }
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "model")
     public Set<Offer> getOffers() {
         return offers;
     }
@@ -108,7 +75,8 @@ public class Model extends BaseEntity {
     public void setOffers(Set<Offer> offers) {
         this.offers = offers;
     }
-
+    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable=false)
     public Brand getBrand() {
         return brand;
     }
