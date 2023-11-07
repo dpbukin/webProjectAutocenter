@@ -15,10 +15,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserRoleServiceImpl implements UserRoleService<UUID> {
-    @Autowired
+
     private UserRoleRepository userRoleRepository;
-    @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    public UserRoleServiceImpl(UserRoleRepository userRoleRepository, ModelMapper modelMapper) {
+        this.userRoleRepository = userRoleRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<UserRoleDto> getAllUserRoles() {
@@ -28,10 +32,6 @@ public class UserRoleServiceImpl implements UserRoleService<UUID> {
     @Override
     public UserRoleDto getUserRoleById(UUID userRoleId) {
         return modelMapper.map(userRoleRepository.findById(userRoleId), UserRoleDto.class);
-
-//        public ModelDto getModelById(UUID modelId) {
-//            return modelMapper.map(modelRepository.findById(modelId), ModelDto.class);
-
     }
 
     @Override
@@ -40,21 +40,19 @@ public class UserRoleServiceImpl implements UserRoleService<UUID> {
         return modelMapper.map(userRoleRepository.save(modelMapper.map(userRoleDto, UserRole.class)), UserRoleDto.class);
     }
 
-    @Override
-    public UserRoleDto updateUserRole(UUID userRoleId, UserRoleDto userRoleDto) {
-        Optional<UserRole> userRoleOptional = userRoleRepository.findById(userRoleId);
-        if (userRoleOptional.isPresent()) {
-            UserRole existingUserRole = userRoleOptional.get();
-
-            existingUserRole.setName(userRoleDto.getName());
-            existingUserRole.setRole(userRoleDto.getRole());
-
-            UserRole updatedUserRole = userRoleRepository.save(existingUserRole);
-
-            return modelMapper.map(updatedUserRole, UserRoleDto.class);
-        }
-        return null;
-    }
+//    @Override
+//    public UserRoleDto updateUserRole(UUID userRoleId, UserRoleDto userRoleDto) {
+//        Optional<UserRole> userRoleOptional = userRoleRepository.findById(userRoleId);
+//        if (userRoleOptional.isPresent()) {
+//            UserRole existingUserRole = userRoleOptional.get();
+//            existingUserRole.setRole(userRoleDto.getRole());
+//
+//            UserRole updatedUserRole = userRoleRepository.save(existingUserRole);
+//
+//            return modelMapper.map(updatedUserRole, UserRoleDto.class);
+//        }
+//        return null;
+//    }
 
     @Override
     public void deleteUserRole(UUID userRoleId) {

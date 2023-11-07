@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,10 +17,16 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService<UUID> {
 
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+    }
+
+    @Autowired
+
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -38,20 +45,12 @@ public class UserServiceImpl implements UserService<UUID> {
     }
 
     @Override
-    public UserDto updateUser(UUID userId, UserDto userDto) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isPresent()) {
-            User existingUser = userOptional.get();
-
-            existingUser.setUsername(userDto.getUsername());
-            existingUser.setPassword(userDto.getPassword());
-            existingUser.setFirstName(userDto.getFirstName());
-            existingUser.setLastName(userDto.getLastName());
-            existingUser.setIsActive(userDto.getIsActive());
-            existingUser.setImageUrl(userDto.getImageUrl());
-
+    public UserDto updateUserPassword(UUID userId,String password) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            User existingUser = user.get();
+            existingUser.setPassword(password);
             User updatedUser = userRepository.save(existingUser);
-
             return modelMapper.map(updatedUser, UserDto.class);
         }
         return null;
@@ -62,13 +61,16 @@ public class UserServiceImpl implements UserService<UUID> {
         userRepository.deleteById(userId);
     }
 
-//    @Override
-//    public void deactivateUser(UUID userId) {
-//        userRepository.findById(userId);
-//        userRepository.setIsActive(false);
-//            // Сохраните изменения в базе данных
-//            userRepository.save(user);
-//        }
-
+    @Override
+    public void deactivateUser(UUID userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            User deactUser = user.get();
+            deactUser.setIsActive(false);
+            deactUser.setModified(LocalDateTime.now());
+            userRepository.save(deactUser);
+        }
     }
+}
+
 

@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,11 +16,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class OfferServiceImpl implements OfferService<UUID> {
-
-    @Autowired
     private OfferRepository offerRepository;
-    @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    public OfferServiceImpl(OfferRepository offerRepository, ModelMapper modelMapper) {
+        this.offerRepository = offerRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<OfferDto> getAllOffers() {
@@ -38,21 +41,12 @@ public class OfferServiceImpl implements OfferService<UUID> {
     }
 
     @Override
-    public OfferDto updateOffer(UUID offerId, OfferDto offerDto) {
+    public OfferDto updateOfferPrice(UUID offerId, BigDecimal price) {
         Optional<Offer> offerOptional = offerRepository.findById(offerId);
         if (offerOptional.isPresent()) {
             Offer existingOffer = offerOptional.get();
 
-            existingOffer.setDescription(offerDto.getDescription());
-            existingOffer.setEngine(offerDto.getEngine());
-            existingOffer.setImage_url(offerDto.getImage_url());
-            existingOffer.setMileage(offerDto.getMileage());
-            existingOffer.setPrice(offerDto.getPrice());
-            existingOffer.setTransmission(offerDto.getTransmission());
-            existingOffer.setYears(offerDto.getYears());
-            existingOffer.setCount(offerDto.getCount());
-            existingOffer.setCreated(offerDto.getCreated());
-            existingOffer.setModified(offerDto.getModified());
+            existingOffer.setPrice(price);
 
             Offer updatedOffer = offerRepository.save(existingOffer);
 
@@ -61,13 +55,14 @@ public class OfferServiceImpl implements OfferService<UUID> {
         return null;
     }
 
+
     @Override
     public void deleteOffer(UUID offerId) {
         offerRepository.deleteById(offerId);
     }
 
-//    @Override
-//    public List<OfferDto> findOffersWithActiveClients() {
-//        return offerRepository.findOffersWithActiveClients();
-//    }
+    @Override
+    public List<OfferDto> findOffersWithActiveClients() {
+        return offerRepository.findOffersWithActiveClients().stream().map(offer -> modelMapper.map(offer, OfferDto.class)).collect(Collectors.toList());
+    }
 }

@@ -2,6 +2,8 @@ package com.example.projectwebautocenterbukin.services.dtos;
 
 import com.example.projectwebautocenterbukin.models.BaseEntity;
 import com.example.projectwebautocenterbukin.models.BaseEntityCreatedModified;
+import com.example.projectwebautocenterbukin.models.Model;
+import com.example.projectwebautocenterbukin.models.User;
 import com.example.projectwebautocenterbukin.models.enums.Engine;
 import com.example.projectwebautocenterbukin.models.enums.Transmission;
 
@@ -17,14 +19,13 @@ public class OfferDto extends BaseEntityCreatedModified {
     private BigDecimal price;
     private Transmission transmission;
     private int years;
-    private int count;
     private LocalDateTime created;
     private LocalDateTime modified;
     private ModelDto modelDto;
     private UserDto sellerDto;
 
 
-    public OfferDto(String description, Engine engine, String image_url, int mileage, BigDecimal price, Transmission transmission, int years, int count, LocalDateTime created, LocalDateTime modified, ModelDto modelDto, UserDto sellerDto) {
+    public OfferDto(String description, Engine engine, String image_url, int mileage, BigDecimal price, Transmission transmission, int years, LocalDateTime created, LocalDateTime modified, ModelDto modelDto, UserDto sellerDto) {
         this.description = description;
         this.engine = engine;
         this.image_url = image_url;
@@ -32,7 +33,6 @@ public class OfferDto extends BaseEntityCreatedModified {
         this.price = price;
         this.transmission = transmission;
         this.years = years;
-        this.count = count;
         this.created = created;
         this.modified = modified;
         this.modelDto = modelDto;
@@ -97,15 +97,6 @@ public class OfferDto extends BaseEntityCreatedModified {
     public void setYears(int years) {
         this.years = years;
     }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     @Override
     public LocalDateTime getCreated() {
         return created;
@@ -152,11 +143,10 @@ public class OfferDto extends BaseEntityCreatedModified {
                 ", price=" + price +
                 ", transmission=" + transmission +
                 ", years=" + years +
-                ", count=" + count +
                 ", created=" + created +
                 ", modified=" + modified +
                 ", modelDto=" + modelDto +
-                ", seller=" + sellerDto +
+                ", sellerDto=" + sellerDto +
                 '}';
     }
 }

@@ -39,24 +39,25 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         seedData();
 
-
-
     }
 
     private void seedData() throws IOException {
         BrandDto brandDto1 = new BrandDto("BMW", LocalDateTime.now(), LocalDateTime.now());
+        System.out.println(brandDto1.getId());
         BrandDto brandDto2 = new BrandDto("Audi", LocalDateTime.now(),LocalDateTime.now());
         BrandDto brandDto3 = new BrandDto("Mercedes-Benz", LocalDateTime.now(), LocalDateTime.now());
         BrandDto brandDto4 = new BrandDto("Toyota", LocalDateTime.now(),LocalDateTime.now());
         BrandDto brandDto5 = new BrandDto("Honda", LocalDateTime.now(),LocalDateTime.now());
 
         brandService.addNewBrand(brandDto1);
+        System.out.println(brandDto1.getId());
         brandService.addNewBrand(brandDto2);
         brandService.addNewBrand(brandDto3);
         brandService.addNewBrand(brandDto4);
         brandService.addNewBrand(brandDto5);
 
         ModelDto modelDto1 = new ModelDto("X5", Category.CAR, "x5.jpg", 2000, 2022,LocalDateTime.now(), LocalDateTime.now(), brandDto1);
+        System.out.println(brandDto1.getId());
         ModelDto modelDto2 = new ModelDto("A6", Category.CAR, "a6.jpg", 1999, 2021, LocalDateTime.now(), LocalDateTime.now(), brandDto2);
         ModelDto modelDto3 = new ModelDto("C-Class", Category.CAR, "c-class.jpg", 1998, 2022, LocalDateTime.now(),LocalDateTime.now(), brandDto3);
         ModelDto modelDto4 = new ModelDto("Camry", Category.CAR, "camry.jpg", 1997, 2021, LocalDateTime.now(), LocalDateTime.now(), brandDto4);
@@ -68,8 +69,8 @@ public class DataInitializer implements CommandLineRunner {
         modelService.addNewModel(modelDto4);
         modelService.addNewModel(modelDto5);
 
-        UserRoleDto userRoleDto1 = new UserRoleDto("Продавец", Role.USER);
-        UserRoleDto userRoleDto2 = new UserRoleDto("Администратор", Role.ADMIN);
+        UserRoleDto userRoleDto1 = new UserRoleDto(Role.USER);
+        UserRoleDto userRoleDto2 = new UserRoleDto(Role.ADMIN);
 
         userRoleService.addUserRole(userRoleDto1);
         userRoleService.addUserRole(userRoleDto2);
@@ -86,11 +87,11 @@ public class DataInitializer implements CommandLineRunner {
         userService.addUser(userDto4);
         userService.addUser(userDto5);
 
-        OfferDto offerDto1 = new OfferDto("BMW X5 на продажу", Engine.GASOLINE, "x5.jpg", 50000, new BigDecimal(80000.55), Transmission.AUTOMATIC, 2020, 5, LocalDateTime.now(), LocalDateTime.now(), modelDto1 , userDto1);
-        OfferDto offerDto2 = new OfferDto("Audi A6 отличное предложение", Engine.GASOLINE, "a6.jpg", 40000, new BigDecimal(28000.0), Transmission.AUTOMATIC, 2019, 8, LocalDateTime.now(), LocalDateTime.now(), modelDto2, userDto2);
-        OfferDto offerDto3 = new OfferDto("Mercedes-Benz C-Class как новый", Engine.DIESEL, "c-class.jpg", 30000, new BigDecimal(25000.0), Transmission.AUTOMATIC, 2018, 10, LocalDateTime.now(), LocalDateTime.now(), modelDto3, userDto3);
-        OfferDto offerDto4 = new OfferDto("Toyota Camry с малым пробегом", Engine.HYBRID, "camry.jpg", 20000, new BigDecimal(20000.0), Transmission.AUTOMATIC, 2017, 12, LocalDateTime.now(), LocalDateTime.now(), modelDto4, userDto4);
-        OfferDto offerDto5 = new OfferDto("Honda Civic в отличном состоянии", Engine.GASOLINE, "civic.jpg", 15000, new BigDecimal(15000.0), Transmission.MANUAL, 2016, 7, LocalDateTime.now(), LocalDateTime.now(), modelDto5, userDto5);
+        OfferDto offerDto1 = new OfferDto("BMW X5 на продажу", Engine.GASOLINE, "x5.jpg", 50000, new BigDecimal(80000.55), Transmission.AUTOMATIC, 2020,LocalDateTime.now(), LocalDateTime.now(), modelDto1 , userDto1);
+        OfferDto offerDto2 = new OfferDto("Audi A6 отличное предложение", Engine.GASOLINE, "a6.jpg", 40000, new BigDecimal(28000.0), Transmission.AUTOMATIC, 2019,LocalDateTime.now(), LocalDateTime.now(), modelDto2, userDto2);
+        OfferDto offerDto3 = new OfferDto("Mercedes-Benz C-Class как новый", Engine.DIESEL, "c-class.jpg", 30000, new BigDecimal(25000.0), Transmission.AUTOMATIC, 2018,LocalDateTime.now(), LocalDateTime.now(), modelDto3, userDto3);
+        OfferDto offerDto4 = new OfferDto("Toyota Camry с малым пробегом", Engine.HYBRID, "camry.jpg", 20000, new BigDecimal(20000.0), Transmission.AUTOMATIC, 2017, LocalDateTime.now(), LocalDateTime.now(), modelDto4, userDto4);
+        OfferDto offerDto5 = new OfferDto("Honda Civic в отличном состоянии", Engine.GASOLINE, "civic.jpg", 15000, new BigDecimal(15000.0), Transmission.MANUAL, 2016,LocalDateTime.now(), LocalDateTime.now(), modelDto5, userDto5);
 
         offerService.addNewOffer(offerDto1);
         offerService.addNewOffer(offerDto2);
@@ -163,18 +164,22 @@ public class DataInitializer implements CommandLineRunner {
         ModelDto updatedModelDto = new ModelDto();
         updatedModelDto.setName("X6");
 
-        ModelDto updatedModel = modelService.updateModelName(modelDto1.getId(), updatedModelDto);
-        System.out.println(updatedModel.toString());
-        System.out.println();
+//        ModelDto updatedModel = modelService.updateModelName(modelDto1.getId(), );
+//        System.out.println(updatedModel.toString());
+//        System.out.println();
 
 
-//        System.out.println(offerService.findOffersWithActiveClients());
-
-//        System.out.println("метод deactivateUser:");
-//        userService.deactivateUser(userDto1.getId());
-//        System.out.println(userDto1.getIsActive());
 
 
+        System.out.println("метод deactivateUser:");
+        userService.deactivateUser(userDto1.getId());
+
+
+        System.out.println("Вывод объявлений по User isActive которого true");
+        List<OfferDto> offerDtos1 = offerService.findOffersWithActiveClients();
+        for (OfferDto x: offerDtos1){
+            System.out.println(x.toString());
+        }
 
 
 

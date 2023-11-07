@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public abstract class BaseEntityCreatedModified extends BaseEntity{
 
-    private LocalDateTime created;
-    private LocalDateTime modified;
+    private LocalDateTime created; //Дата и время создания
+    private LocalDateTime modified; //Дата и время изменения
 
 //    now(ZoneId zone) получние метки времени в данный момент
     public BaseEntityCreatedModified(LocalDateTime created, LocalDateTime modified) {

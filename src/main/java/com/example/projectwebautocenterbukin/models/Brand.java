@@ -6,8 +6,8 @@ import java.util.Set;
 @Entity
 @Table(name = "brands")
 public class Brand extends BaseEntityCreatedModified {
-    private String name;
-    private Set<Model> model;
+    private String name; //Наименование бренда
+    private Set<Model> model; //Связь с моделью
 
     public Brand(String name) {
         this.name = name;
@@ -25,7 +25,7 @@ public class Brand extends BaseEntityCreatedModified {
         this.name = name;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "brand")
     public Set<Model> getModel() {
         return model;
     }

@@ -8,7 +8,7 @@ public interface BrandService<ID> {
     List<BrandDto> getAllBrands();
     BrandDto getBrandById(ID brandId);
     BrandDto addNewBrand(BrandDto brandDto);
-    BrandDto updateBrand(ID brandId, BrandDto brandDto);
+    BrandDto updateBrandName(ID brandId, String name);
     void deleteBrand(ID brandId);
 
 

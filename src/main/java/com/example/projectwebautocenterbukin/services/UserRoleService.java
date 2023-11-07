@@ -8,6 +8,6 @@ public interface UserRoleService<ID>{
     List<UserRoleDto> getAllUserRoles();
     UserRoleDto getUserRoleById(ID userRoleId);
     UserRoleDto addUserRole(UserRoleDto userRoleDto);
-    UserRoleDto updateUserRole(ID userRoleId, UserRoleDto userRoleDto);
+//    UserRoleDto updateUserRole(ID userRoleId, UserRoleDto UserRoleDto);
     void deleteUserRole(ID userRoleId);
 }

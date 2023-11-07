@@ -2,20 +2,22 @@ package com.example.projectwebautocenterbukin.models;
 
 import com.example.projectwebautocenterbukin.models.enums.Category;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "models")
-@Inheritance(strategy=InheritanceType.JOINED)
+//@Inheritance(strategy=InheritanceType.JOINED)
 public class Model extends BaseEntityCreatedModified {
-    private String name;
-    private Category category;
-    private String imageUrl;
+    private String name; //Имя модели
+    private Category category; //Категория Enum
+    private String imageUrl; //URl строка
     private int startYear;
     private int endYear;
     private Set<Offer> offers;
-    private Brand brand;
+    private Brand brand; //Бренд модели
     public Model(String name, Category category, String imageUrl, int startYear, int endYear) {
         this.name = name;
         this.category = category;
@@ -67,7 +69,7 @@ public class Model extends BaseEntityCreatedModified {
     public void setEndYear(int endYear) {
         this.endYear = endYear;
     }
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "model")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "model")
     public Set<Offer> getOffers() {
         return offers;
     }
@@ -75,7 +77,7 @@ public class Model extends BaseEntityCreatedModified {
     public void setOffers(Set<Offer> offers) {
         this.offers = offers;
     }
-    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(optional = false)
     @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable=false)
     public Brand getBrand() {
         return brand;

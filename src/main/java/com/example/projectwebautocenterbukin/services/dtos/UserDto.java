@@ -2,9 +2,12 @@ package com.example.projectwebautocenterbukin.services.dtos;
 
 import com.example.projectwebautocenterbukin.models.BaseEntity;
 import com.example.projectwebautocenterbukin.models.BaseEntityCreatedModified;
+import com.example.projectwebautocenterbukin.models.Offer;
+import com.example.projectwebautocenterbukin.models.UserRole;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class UserDto extends BaseEntityCreatedModified {
     private String username;
@@ -15,9 +18,9 @@ public class UserDto extends BaseEntityCreatedModified {
     private String imageUrl;
     private LocalDateTime created;
     private LocalDateTime modified;
-    private UserRoleDto userRoleDto;
+    private UserRoleDto roleDto;
 
-    public UserDto(String username, String password, String firstName, String lastName, boolean isActive, String imageUrl, LocalDateTime created, LocalDateTime modified, UserRoleDto userRoleDto) {
+    public UserDto(String username, String password, String firstName, String lastName, boolean isActive, String imageUrl, LocalDateTime created, LocalDateTime modified, UserRoleDto roleDto) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -26,7 +29,7 @@ public class UserDto extends BaseEntityCreatedModified {
         this.imageUrl = imageUrl;
         this.created = created;
         this.modified = modified;
-        this.userRoleDto = userRoleDto;
+        this.roleDto = roleDto;
     }
 
     public UserDto() {
@@ -100,12 +103,12 @@ public class UserDto extends BaseEntityCreatedModified {
         this.modified = modified;
     }
 
-    public UserRoleDto getUserRoleDto() {
-        return userRoleDto;
+    public UserRoleDto getRoleDto() {
+        return roleDto;
     }
 
-    public void setUserRoleDto(UserRoleDto userRoleDto) {
-        this.userRoleDto = userRoleDto;
+    public void setRoleDto(UserRoleDto roleDto) {
+        this.roleDto = roleDto;
     }
 
     @Override
@@ -119,7 +122,7 @@ public class UserDto extends BaseEntityCreatedModified {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", created=" + created +
                 ", modified=" + modified +
-                ", userRoleDto=" + userRoleDto +
+                ", userRoleDto=" + roleDto +
                 '}';
     }
 }

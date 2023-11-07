@@ -9,16 +9,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy=InheritanceType.JOINED)
+//@Inheritance(strategy=InheritanceType.JOINED)
 public class User extends BaseEntityCreatedModified {
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private boolean isActive;
-    private String imageUrl;
-    private Set<Offer> offers;
-    private UserRole role;
+    private String username; //Имя пользователя
+    private String password; //Пароль
+    private String firstName; //Имя
+    private String lastName; //Фамилия
+    private boolean isActive; //Сатус
+    private String imageUrl; //URL изображения
+    private Set<Offer> offers; //Связь с объявлением
+    private UserRole role; //Роль пользователя (User or Admin)
 
     public User(String username, String password, String firstName, String lastName, boolean isActive, String imageUrl) {
         this.username = username;
@@ -71,6 +71,7 @@ public class User extends BaseEntityCreatedModified {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
     @Column(name = "is_active", nullable = false)
     public boolean getIsActive() {
         return isActive;
@@ -78,6 +79,7 @@ public class User extends BaseEntityCreatedModified {
     public void setIsActive(boolean active) {
         isActive = active;
     }
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable=false)
     public UserRole getRole() {
@@ -87,7 +89,9 @@ public class User extends BaseEntityCreatedModified {
     public void setRole(UserRole role) {
         this.role = role;
     }
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "seller")
     public Set<Offer> getOffers() {
         return offers;
     }

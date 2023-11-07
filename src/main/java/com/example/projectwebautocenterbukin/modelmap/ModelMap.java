@@ -1,10 +1,7 @@
 package com.example.projectwebautocenterbukin.modelmap;
 
-//import com.example.projectwebautocenterbukin.dtos.*;
-import com.example.projectwebautocenterbukin.models.*;
-import com.example.projectwebautocenterbukin.services.dtos.*;
+
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.modelmapper.config.Configuration;
 import org.springframework.context.annotation.Bean;
 
@@ -43,7 +40,7 @@ public class ModelMap {
 //        typeMapUser.addMappings((m -> m.map(src -> src.getImageUrl(), UserDto::setImageUrl)));
 //        typeMapUser.addMappings((m -> m.map(src -> src.getCreated(), UserDto::setCreated)));
 //        typeMapUser.addMappings((m -> m.map(src -> src.getModified(), UserDto::setModified)));
-//        typeMapUser.addMappings((m -> m.map(src -> src.getRole(), UserDto::setUserRoleDto)));
+//        typeMapUser.addMappings((m -> m.map(src -> src.getRole(), UserDto::setRoleDto)));
 //
 //        TypeMap<Offer, OfferDto> typeMapOffer = modelMapper.createTypeMap(Offer.class, OfferDto.class);
 //        typeMapOffer.addMappings((m -> m.map(src -> src.getDescription(), OfferDto::setDescription)));
@@ -53,17 +50,14 @@ public class ModelMap {
 //        typeMapOffer.addMappings((m -> m.map(src -> src.getPrice(), OfferDto::setPrice)));
 //        typeMapOffer.addMappings((m -> m.map(src -> src.getTransmission(), OfferDto::setTransmission)));
 //        typeMapOffer.addMappings((m -> m.map(src -> src.getYears(), OfferDto::setYears)));
-//        typeMapOffer.addMappings((m -> m.map(src -> src.getCount(), OfferDto::setCount)));
 //        typeMapOffer.addMappings((m -> m.map(src -> src.getCreated(), OfferDto::setCreated)));
 //        typeMapOffer.addMappings((m -> m.map(src -> src.getModified(), OfferDto::setModified)));
 //        typeMapOffer.addMappings((m -> m.map(src -> src.getModel(), OfferDto::setModelDto)));
-////        typeMapOffer.addMappings((m -> m.map(src -> src.getSeller(), OfferDto::setSeller)));
-//
+//        typeMapOffer.addMappings((m -> m.map(src -> src.getSeller(), OfferDto::setSellerDto)));
 //
 //        TypeMap<UserRole, UserRoleDto> typeMapUserRole = modelMapper.createTypeMap(UserRole.class, UserRoleDto.class);
-//        typeMapUserRole.addMappings((m -> m.map(src -> src.getName(), UserRoleDto::setName)));
 //        typeMapUserRole.addMappings((m -> m.map(src -> src.getRole(), UserRoleDto::setRole)));
-//
+
 
         return modelMapper;
     }

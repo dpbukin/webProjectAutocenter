@@ -16,10 +16,14 @@ import java.util.stream.Collectors;
 @Service
 public class ModelServiceImpl implements ModelService<UUID> {
 
-    @Autowired
+
     private ModelRepository modelRepository;
-    @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    public ModelServiceImpl(ModelRepository modelRepository, ModelMapper modelMapper) {
+        this.modelRepository = modelRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public List<ModelDto> getAllModels() {
@@ -38,15 +42,13 @@ public class ModelServiceImpl implements ModelService<UUID> {
     }
 
     @Override
-    public ModelDto updateModelName(UUID modelId, ModelDto modelDto) {
+    public ModelDto updateModelName(UUID modelId, String name) {
         // Optional - для случаев когда метод может вернуть пустое значение
         Optional<Model> modelOptional = modelRepository.findById(modelId);
         if (modelOptional.isPresent()) {
             Model existingModel = modelOptional.get();
-            existingModel.setName(modelDto.getName());
-
+            existingModel.setName(name);
             Model updatedModel = modelRepository.save(existingModel);
-
             return modelMapper.map(updatedModel, ModelDto.class);
         }
         return null;

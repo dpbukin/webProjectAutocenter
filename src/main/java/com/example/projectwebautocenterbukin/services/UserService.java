@@ -8,8 +8,7 @@ public interface UserService<ID> {
     List<UserDto> getAllUsers();
     UserDto getUserById(ID userId);
     UserDto addUser(UserDto userDto);
-    UserDto updateUser(ID userId, UserDto userDto);
+    UserDto updateUserPassword(ID userId, String password);
     void deleteUser(ID userId);
-
-//    void deactivateUser(ID userId);
+    void deactivateUser(ID userId);
 }

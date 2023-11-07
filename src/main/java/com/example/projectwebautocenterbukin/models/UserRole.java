@@ -8,26 +8,17 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class UserRole extends BaseEntity {
-    private String name;
     private Role role;
     private Set<User> user;
 
-    public UserRole(String name, Role role) {
-        this.name = name;
+    public UserRole(Role role) {
         this.role = role;
     }
 
     public UserRole() {
     }
-    @Column(name = "name", nullable = false)
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     public Role getRole() {
         return role;
     }
@@ -35,7 +26,7 @@ public class UserRole extends BaseEntity {
     public void setRole(Role role) {
         this.role = role;
     }
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "role")
     public Set<User> getUser() {
         return user;
     }

@@ -13,19 +13,18 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "offers")
 public class Offer extends BaseEntityCreatedModified {
-    private String description;
-    private Engine engine;
-    private String image_url;
-    private int mileage;
-    private BigDecimal price;
-    private Transmission transmission;
-    private int years;
-    private int count;
-    private Model model;
-    private User seller;
+    private String description; //Описание
+    private Engine engine; //Тип двигателя Enum
+    private String image_url; //URL изибражения
+    private int mileage; //Число
+    private BigDecimal price; //Стоимость
+    private Transmission transmission; //Тип трансмисии Enum
+    private int years; //Год выпуска
+    private Model model; //Модель авто
+    private User seller; //Продавец
 
 
-    public Offer(String description, Engine engine, String image_url, int mileage, BigDecimal price, Transmission transmission, int years, int count) {
+    public Offer(String description, Engine engine, String image_url, int mileage, BigDecimal price, Transmission transmission, int years) {
         this.description = description;
         this.engine = engine;
         this.image_url = image_url;
@@ -33,7 +32,6 @@ public class Offer extends BaseEntityCreatedModified {
         this.price = price;
         this.transmission = transmission;
         this.years = years;
-        this.count = count;
     }
 
     public Offer() {
@@ -96,15 +94,8 @@ public class Offer extends BaseEntityCreatedModified {
     public void setYears(int years) {
         this.years = years;
     }
-    @Column(name = "count")
-    public int getCount() {
-        return count;
-    }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(optional = false)
     @JoinColumn(name = "model_id", referencedColumnName = "id", nullable=false)
     public Model getModel() {
         return model;
@@ -115,6 +106,7 @@ public class Offer extends BaseEntityCreatedModified {
     }
     @ManyToOne(optional = false)
     @JoinColumn(name = "seller_id", referencedColumnName = "id", nullable=false)
+//    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     public User getSeller() {
         return seller;
     }

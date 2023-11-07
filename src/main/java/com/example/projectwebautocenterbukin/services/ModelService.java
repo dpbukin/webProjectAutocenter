@@ -8,6 +8,6 @@ public interface ModelService<ID> {
     List<ModelDto> getAllModels();
     ModelDto getModelById(ID modelId);
     ModelDto addNewModel(ModelDto modelDto);
-    ModelDto updateModelName(ID modelId, ModelDto modelDto);
+    ModelDto updateModelName(ID modelId, String name);
     void deleteModel(ID modelId);
 }
