@@ -40,19 +40,6 @@ public class UserRoleServiceImpl implements UserRoleService<UUID> {
         return modelMapper.map(userRoleRepository.save(modelMapper.map(userRoleDto, UserRole.class)), UserRoleDto.class);
     }
 
-//    @Override
-//    public UserRoleDto updateUserRole(UUID userRoleId, UserRoleDto userRoleDto) {
-//        Optional<UserRole> userRoleOptional = userRoleRepository.findById(userRoleId);
-//        if (userRoleOptional.isPresent()) {
-//            UserRole existingUserRole = userRoleOptional.get();
-//            existingUserRole.setRole(userRoleDto.getRole());
-//
-//            UserRole updatedUserRole = userRoleRepository.save(existingUserRole);
-//
-//            return modelMapper.map(updatedUserRole, UserRoleDto.class);
-//        }
-//        return null;
-//    }
 
     @Override
     public void deleteUserRole(UUID userRoleId) {

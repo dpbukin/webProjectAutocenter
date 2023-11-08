@@ -41,7 +41,7 @@ public class OfferController {
     }
 
 
-    @PutMapping("/{id}/{name}")
+    @PutMapping("/{id}/{price}")
     OfferDto updateOfferPrice(@PathVariable UUID id, @PathVariable BigDecimal price){
         return offerService.updateOfferPrice(id, price);
     }

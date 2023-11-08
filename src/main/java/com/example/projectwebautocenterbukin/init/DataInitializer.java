@@ -7,6 +7,7 @@ import com.example.projectwebautocenterbukin.models.enums.Transmission;
 import com.example.projectwebautocenterbukin.services.*;
 import com.example.projectwebautocenterbukin.services.dtos.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +26,7 @@ public class DataInitializer implements CommandLineRunner {
     private UserService userService;
     private ModelMapper modelMapper;
 
+    @Autowired
     public DataInitializer(BrandService brandService, ModelService modelService, OfferService offerService, UserRoleService userRoleService, UserService userService, ModelMapper modelMapper) {
         this.brandService = brandService;
         this.modelService = modelService;

@@ -12,10 +12,11 @@ import java.util.*;
 public class UserRoleController {
     private UserRoleService userRoleService;
 
-//    @Autowired
-//    public void setUserRoleService(UserRoleService userRoleService) {
-//        this.userRoleService = userRoleService;
-//    }
+    @Autowired
+    public UserRoleController(UserRoleService userRoleService) {
+        this.userRoleService = userRoleService;
+    }
+
     @GetMapping("/all")
     List<UserRoleDto> getAllUserRole(){
         return userRoleService.getAllUserRoles();
@@ -31,13 +32,14 @@ public class UserRoleController {
     String deleteUserRole(@PathVariable UUID id){
         userRoleService.deleteUserRole(id);
         return "Client with id = " + id + " was deleted";}
-
-//    @PutMapping("/{id}/{role}")
-//    UserRoleDto updateUserRoleName(@PathVariable UUID id, @PathVariable Role role){
-//        return userRoleService.updateUserRoleName(id, role);
-//    }
     @Autowired
     public void setUserRoleService(UserRoleService userRoleService) {
         this.userRoleService = userRoleService;
     }
+
+    //    @PutMapping("/{id}/{role}")
+//    UserRoleDto updateUserRoleName(@PathVariable UUID id, @PathVariable Role role){
+//        return userRoleService.updateUserRoleName(id, role);
+//    }
+
 }

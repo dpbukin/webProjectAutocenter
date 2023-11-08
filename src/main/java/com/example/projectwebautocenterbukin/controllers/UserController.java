@@ -30,6 +30,7 @@ public class UserController {
 
     @PostMapping("/deactivateuser/{id}")
     String deactivateUser(@PathVariable UUID id) {
+        userService.deactivateUser(id);
         return "User with id = " + id + " was deactivate";
     }
 
