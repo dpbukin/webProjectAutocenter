@@ -4,20 +4,23 @@ import com.example.projectwebautocenterbukin.models.BaseEntity;
 import com.example.projectwebautocenterbukin.models.BaseEntityCreatedModified;
 import com.example.projectwebautocenterbukin.models.Offer;
 import com.example.projectwebautocenterbukin.models.UserRole;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 public class UserDto extends BaseEntityCreatedModified {
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private boolean isActive;
-    private String imageUrl;
-    private LocalDateTime created;
-    private LocalDateTime modified;
+    private String username; // Имя пользователя
+    private String password; // Пароль
+    private String firstName; // Имя
+    private String lastName; // Фамилия
+    private boolean isActive; // Статус активности
+    private String imageUrl; // URL изображения
+    private LocalDateTime created; // Время создания
+    private LocalDateTime modified; // Время последней модификации
     private UserRoleDto roleDto;
 
     public UserDto(String username, String password, String firstName, String lastName, boolean isActive, String imageUrl, LocalDateTime created, LocalDateTime modified, UserRoleDto roleDto) {
@@ -34,7 +37,9 @@ public class UserDto extends BaseEntityCreatedModified {
 
     public UserDto() {
     }
-
+    @NotNull
+    @NotEmpty(message = "The username cannot be empty")
+    @Length(min = 2, message = "Username must be more than two characters and not use special characters!")
     public String getUsername() {
         return username;
     }
@@ -42,7 +47,8 @@ public class UserDto extends BaseEntityCreatedModified {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    @NotNull
+    @NotEmpty(message = "The password cannot be empty")
     public String getPassword() {
         return password;
     }
@@ -50,7 +56,9 @@ public class UserDto extends BaseEntityCreatedModified {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    @NotNull
+    @NotEmpty(message = "The firstName cannot be empty")
+    @Length(min = 2, message = "The firstName must be more than two characters and not use special characters!")
     public String getFirstName() {
         return firstName;
     }
@@ -58,7 +66,9 @@ public class UserDto extends BaseEntityCreatedModified {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    @NotNull
+    @NotEmpty(message = "The lastName cannot be empty")
+    @Length(min = 2, message = "The lastName must be more than two characters and not use special characters!")
     public String getLastName() {
         return lastName;
     }

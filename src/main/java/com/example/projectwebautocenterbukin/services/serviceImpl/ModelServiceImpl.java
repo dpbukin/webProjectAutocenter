@@ -4,9 +4,12 @@ import com.example.projectwebautocenterbukin.services.dtos.ModelDto;
 import com.example.projectwebautocenterbukin.models.Model;
 import com.example.projectwebautocenterbukin.repositories.ModelRepository;
 import com.example.projectwebautocenterbukin.services.ModelService;
+import com.example.projectwebautocenterbukin.utils.ValidationUtil;
+import com.example.projectwebautocenterbukin.views.ModelViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.validation.ConstraintViolation;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,46 +19,73 @@ import java.util.stream.Collectors;
 @Service
 public class ModelServiceImpl implements ModelService<UUID> {
 
-
     private ModelRepository modelRepository;
+    private final ValidationUtil validationUtil;
     private ModelMapper modelMapper;
+
     @Autowired
-    public ModelServiceImpl(ModelRepository modelRepository, ModelMapper modelMapper) {
-        this.modelRepository = modelRepository;
+    public ModelServiceImpl(ValidationUtil validationUtil, ModelMapper modelMapper) {
+        this.validationUtil = validationUtil;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<ModelDto> getAllModels() {
-        return modelRepository.findAll().stream().map(models -> modelMapper.map(models, ModelDto.class)).collect(Collectors.toList());
+    public List<ModelViewModel> getAllModels() {
+        return modelRepository.findAll().stream().map(models -> modelMapper.map(models, ModelViewModel.class)).collect(Collectors.toList());
     }
 
     @Override
-    public ModelDto getModelById(UUID modelId) {
-        return modelMapper.map(modelRepository.findById(modelId), ModelDto.class);
+    public ModelViewModel getModelById(UUID modelId) {
+        return modelMapper.map(modelRepository.findById(modelId), ModelViewModel.class);
     }
 
     @Override
-    public ModelDto addNewModel(ModelDto modelDto) {
+    public void addNewModel(ModelDto modelDto) {
         modelDto.setId(UUID.randomUUID());
-        return  modelMapper.map(modelRepository.save(modelMapper.map(modelDto, Model.class)), ModelDto.class);
+
+        if (!validationUtil.isValid(modelDto)) {
+            validationUtil
+                    .violations(modelDto)
+                    .stream()
+                    .map(ConstraintViolation::getMessage)
+                    .forEach(System.out::println);
+
+            throw new IllegalArgumentException("Illegal arguments!");
+        }
+
+        Model model = modelMapper.map(modelDto, Model.class);
+        this.modelRepository.saveAndFlush(model);
     }
 
     @Override
-    public ModelDto updateModelName(UUID modelId, String name) {
-        // Optional - для случаев когда метод может вернуть пустое значение
+    public void updateModelName(UUID modelId, String name) {
         Optional<Model> modelOptional = modelRepository.findById(modelId);
         if (modelOptional.isPresent()) {
             Model existingModel = modelOptional.get();
             existingModel.setName(name);
+
+            if (!validationUtil.isValid(existingModel)) {
+                validationUtil
+                        .violations(existingModel)
+                        .stream()
+                        .map(ConstraintViolation::getMessage)
+                        .forEach(System.out::println);
+
+                throw new IllegalArgumentException("Illegal arguments!");
+            }
+
             Model updatedModel = modelRepository.save(existingModel);
-            return modelMapper.map(updatedModel, ModelDto.class);
+            modelMapper.map(updatedModel, ModelDto.class);
         }
-        return null;
     }
 
     @Override
     public void deleteModel(UUID modelId) {
         modelRepository.deleteById(modelId);
+    }
+
+    @Autowired
+    public void setModelRepository(ModelRepository modelRepository){
+        this.modelRepository = modelRepository;
     }
 }

@@ -2,6 +2,7 @@ package com.example.projectwebautocenterbukin.controllers;
 
 import com.example.projectwebautocenterbukin.services.ModelService;
 import com.example.projectwebautocenterbukin.services.dtos.ModelDto;
+import com.example.projectwebautocenterbukin.views.ModelViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +17,16 @@ public class ModelController {
         this.modelService = modelService;
     }
     @GetMapping("/all")
-    List<ModelDto> getAllModels(){
+    List<ModelViewModel> getAllModels(){
         return modelService.getAllModels();
     }
     @GetMapping("/{id}")
-    ModelDto getModelById(@PathVariable UUID id){
+    ModelViewModel getModelById(@PathVariable UUID id){
         return modelService.getModelById(id);
     }
     @PostMapping("/add")
-    ModelDto addNewModel(@RequestBody ModelDto modelDto){
-        return modelService.addNewModel(modelDto);
+    void addNewModel(@RequestBody ModelDto modelDto){
+        modelService.addNewModel(modelDto);
     }
     @DeleteMapping("/delete/{id}")
     String deleteModel(@PathVariable UUID id){
@@ -33,7 +34,7 @@ public class ModelController {
         return "Model with id = " + id + " was deleted";}
 
     @PutMapping("/{id}/{name}")
-    ModelDto updateBrandName(@PathVariable UUID id, @PathVariable String name){
-        return modelService.updateModelName(id, name);}
+    void updateBrandName(@PathVariable UUID id, @PathVariable String name){
+        modelService.updateModelName(id, name);}
 
 }

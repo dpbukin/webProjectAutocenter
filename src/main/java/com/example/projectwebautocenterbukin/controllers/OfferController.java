@@ -2,6 +2,7 @@ package com.example.projectwebautocenterbukin.controllers;
 
 import com.example.projectwebautocenterbukin.services.OfferService;
 import com.example.projectwebautocenterbukin.services.dtos.OfferDto;
+import com.example.projectwebautocenterbukin.views.OfferViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,16 +19,16 @@ public class OfferController {
         this.offerService = offerService;
     }
     @GetMapping("/all")
-    List<OfferDto> getAllOffers(){
+    List<OfferViewModel> getAllOffers(){
         return offerService.getAllOffers();
     }
     @GetMapping("/{id}")
-    OfferDto getOfferById(@PathVariable UUID id){
+    OfferViewModel getOfferById(@PathVariable UUID id){
         return offerService.getOfferById(id);
     }
     @PostMapping("/add")
-    OfferDto addNewOffer(@RequestBody OfferDto offerDto){
-        return offerService.addNewOffer(offerDto);
+    void addNewOffer(@RequestBody OfferDto offerDto){
+        offerService.addNewOffer(offerDto);
     }
     @DeleteMapping("/delete/{id}")
     String deleteOffer(@PathVariable UUID id){
@@ -42,8 +43,8 @@ public class OfferController {
 
 
     @PutMapping("/{id}/{price}")
-    OfferDto updateOfferPrice(@PathVariable UUID id, @PathVariable BigDecimal price){
-        return offerService.updateOfferPrice(id, price);
+    void updateOfferPrice(@PathVariable UUID id, @PathVariable BigDecimal price){
+        offerService.updateOfferPrice(id, price);
     }
 
 }

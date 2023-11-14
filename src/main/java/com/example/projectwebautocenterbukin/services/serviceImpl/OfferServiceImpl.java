@@ -4,9 +4,12 @@ import com.example.projectwebautocenterbukin.services.dtos.OfferDto;
 import com.example.projectwebautocenterbukin.models.Offer;
 import com.example.projectwebautocenterbukin.repositories.OfferRepository;
 import com.example.projectwebautocenterbukin.services.OfferService;
+import com.example.projectwebautocenterbukin.utils.ValidationUtil;
+import com.example.projectwebautocenterbukin.views.OfferViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.validation.ConstraintViolation;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,42 +20,65 @@ import java.util.stream.Collectors;
 @Service
 public class OfferServiceImpl implements OfferService<UUID> {
     private OfferRepository offerRepository;
+
+    private final ValidationUtil validationUtil;
     private ModelMapper modelMapper;
     @Autowired
-    public OfferServiceImpl(OfferRepository offerRepository, ModelMapper modelMapper) {
-        this.offerRepository = offerRepository;
+    public OfferServiceImpl(ValidationUtil validationUtil, ModelMapper modelMapper) {
+        this.validationUtil = validationUtil;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<OfferDto> getAllOffers() {
-        return offerRepository.findAll().stream().map(offer -> modelMapper.map(offer, OfferDto.class)).collect(Collectors.toList());
+    public List<OfferViewModel> getAllOffers() {
+        return offerRepository.findAll().stream().map(offer -> modelMapper.map(offer, OfferViewModel.class)).collect(Collectors.toList());
     }
 
     @Override
-    public OfferDto getOfferById(UUID offerId) {
-        return modelMapper.map(offerRepository.findById(offerId), OfferDto.class);
+    public OfferViewModel getOfferById(UUID offerId) {
+        return modelMapper.map(offerRepository.findById(offerId), OfferViewModel.class);
     }
 
     @Override
-    public OfferDto addNewOffer(OfferDto offerDto) {
+    public void addNewOffer(OfferDto offerDto) {
         offerDto.setId(UUID.randomUUID());
-        return modelMapper.map(offerRepository.save(modelMapper.map(offerDto, Offer.class)), OfferDto.class);
+
+        if (!validationUtil.isValid(offerDto)) {
+            validationUtil
+                    .violations(offerDto)
+                    .stream()
+                    .map(ConstraintViolation::getMessage)
+                    .forEach(System.out::println);
+
+            throw new IllegalArgumentException("Illegal arguments!");
+        }
+
+        Offer offer = modelMapper.map(offerDto, Offer.class);
+        Offer savedOffer = offerRepository.save(offer);
+        this.offerRepository.saveAndFlush(savedOffer);
     }
 
     @Override
-    public OfferDto updateOfferPrice(UUID offerId, BigDecimal price) {
+    public void updateOfferPrice(UUID offerId, BigDecimal price) {
         Optional<Offer> offerOptional = offerRepository.findById(offerId);
         if (offerOptional.isPresent()) {
             Offer existingOffer = offerOptional.get();
 
             existingOffer.setPrice(price);
 
-            Offer updatedOffer = offerRepository.save(existingOffer);
+            if (!validationUtil.isValid(existingOffer)) {
+                validationUtil
+                        .violations(existingOffer)
+                        .stream()
+                        .map(ConstraintViolation::getMessage)
+                        .forEach(System.out::println);
 
-            return modelMapper.map(updatedOffer, OfferDto.class);
+                throw new IllegalArgumentException("Illegal arguments!");
+            }
+
+            Offer updatedOffer = offerRepository.save(existingOffer);
+            modelMapper.map(updatedOffer, OfferDto.class);
         }
-        return null;
     }
 
 
@@ -64,5 +90,9 @@ public class OfferServiceImpl implements OfferService<UUID> {
     @Override
     public List<OfferDto> findOffersWithActiveClients() {
         return offerRepository.findOffersWithActiveClients().stream().map(offer -> modelMapper.map(offer, OfferDto.class)).collect(Collectors.toList());
+    }
+    @Autowired
+    public void setOfferRepository(OfferRepository offerRepository) {
+        this.offerRepository = offerRepository;
     }
 }

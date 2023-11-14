@@ -26,8 +26,8 @@ public class UserRoleController {
         return userRoleService.getUserRoleById(id);
     }
     @PostMapping("/add")
-    UserRoleDto addUserRole(@RequestBody UserRoleDto userRoleDto){
-        return userRoleService.addUserRole(userRoleDto);}
+    void addUserRole(@RequestBody UserRoleDto userRoleDto){
+        userRoleService.addUserRole(userRoleDto);}
     @DeleteMapping("/delete/{id}")
     String deleteUserRole(@PathVariable UUID id){
         userRoleService.deleteUserRole(id);
@@ -37,9 +37,5 @@ public class UserRoleController {
         this.userRoleService = userRoleService;
     }
 
-    //    @PutMapping("/{id}/{role}")
-//    UserRoleDto updateUserRoleName(@PathVariable UUID id, @PathVariable Role role){
-//        return userRoleService.updateUserRoleName(id, role);
-//    }
 
 }

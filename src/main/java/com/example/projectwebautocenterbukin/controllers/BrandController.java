@@ -2,6 +2,7 @@ package com.example.projectwebautocenterbukin.controllers;
 
 import com.example.projectwebautocenterbukin.services.BrandService;
 import com.example.projectwebautocenterbukin.services.dtos.BrandDto;
+import com.example.projectwebautocenterbukin.views.BrandViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,23 +19,23 @@ public class BrandController {
         this.brandService = brandService;
     }
     @GetMapping("/all")
-    List<BrandDto> getAllBrand(){
+    List<BrandViewModel> getAllBrand(){
         return brandService.getAllBrands();
     }
     @GetMapping("/{id}")
-    BrandDto getBrand(@PathVariable UUID id){
+    BrandViewModel getBrand(@PathVariable UUID id){
         return brandService.getBrandById(id);
     }
     @PostMapping("/add")
-    BrandDto addNewBrand(@RequestBody BrandDto brandDto){
-        return brandService.addNewBrand(brandDto);
+    void addNewBrand(@RequestBody BrandDto brandDto){
+        brandService.addNewBrand(brandDto);
     }
     @DeleteMapping("/delete/{id}")
     String deleteBrand(@PathVariable UUID id){
         brandService.getBrandById(id);
         return "Brand with id = " + id + " was deleted";}
     @PutMapping("/{id}/{name}")
-    BrandDto updateBrandName(@PathVariable UUID id, @PathVariable String name){
-        return brandService.updateBrandName(id, name);}
+    void updateBrandName(@PathVariable UUID id, @PathVariable String name){
+        brandService.updateBrandName(id, name);}
 
 }

@@ -2,9 +2,11 @@ package com.example.projectwebautocenterbukin.services.dtos;
 
 import com.example.projectwebautocenterbukin.models.BaseEntity;
 import com.example.projectwebautocenterbukin.models.enums.Role;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class UserRoleDto extends BaseEntity {
-    private Role role;
+    private Role role; //Роль юзера
 
     public UserRoleDto(Role role) {
         this.role = role;
@@ -12,7 +14,8 @@ public class UserRoleDto extends BaseEntity {
 
     public UserRoleDto() {
     }
-
+//    @NotNull
+//    @NotEmpty(message = "The role cannot be empty")
     public Role getRole() {
         return role;
     }

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Offer extends BaseEntityCreatedModified {
     private String description; //Описание
     private Engine engine; //Тип двигателя Enum
-    private String image_url; //URL изибражения
+    private String image_url; //URL изображения
     private int mileage; //Число
     private BigDecimal price; //Стоимость
     private Transmission transmission; //Тип трансмисии Enum

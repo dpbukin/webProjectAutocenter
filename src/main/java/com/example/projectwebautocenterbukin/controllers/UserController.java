@@ -2,6 +2,7 @@ package com.example.projectwebautocenterbukin.controllers;
 
 import com.example.projectwebautocenterbukin.services.UserService;
 import com.example.projectwebautocenterbukin.services.dtos.UserDto;
+import com.example.projectwebautocenterbukin.views.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
@@ -15,14 +16,14 @@ public class UserController {
         this.userService = userService;
     }
     @GetMapping("/all")
-    List<UserDto> getAllUsers(){
+    List<UserViewModel> getAllUsers(){
         return userService.getAllUsers();}
     @GetMapping("/{id}")
-    UserDto getUserById(@PathVariable UUID id){
+    UserViewModel getUserById(@PathVariable UUID id){
         return userService.getUserById(id);}
     @PostMapping("/add")
-    UserDto addNewOffer(@RequestBody UserDto userDto){
-        return userService.addUser(userDto);}
+    void addNewOffer(@RequestBody UserDto userDto){
+        userService.addUser(userDto);}
     @DeleteMapping("/delete/{id}")
     String deleteOffer(@PathVariable UUID id){
         userService.deleteUser(id);
@@ -35,8 +36,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}/{password}")
-    UserDto updateUserPassword(@PathVariable UUID id, @PathVariable String password){
-        return userService.updateUserPassword(id, password);
+    void updateUserPassword(@PathVariable UUID id, @PathVariable String password){
+        userService.updateUserPassword(id, password);
     }
 
 }

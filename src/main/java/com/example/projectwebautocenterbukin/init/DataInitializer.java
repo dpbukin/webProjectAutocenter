@@ -6,6 +6,10 @@ import com.example.projectwebautocenterbukin.models.enums.Role;
 import com.example.projectwebautocenterbukin.models.enums.Transmission;
 import com.example.projectwebautocenterbukin.services.*;
 import com.example.projectwebautocenterbukin.services.dtos.*;
+import com.example.projectwebautocenterbukin.views.BrandViewModel;
+import com.example.projectwebautocenterbukin.views.ModelViewModel;
+import com.example.projectwebautocenterbukin.views.OfferViewModel;
+import com.example.projectwebautocenterbukin.views.UserViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -104,23 +108,23 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println();
         System.out.println("Проверка работы CRUD");
         System.out.println("Вывод всех брендов:");
-        List<BrandDto> brandsDtos = brandService.getAllBrands();
+        List<BrandViewModel> brandsDtos = brandService.getAllBrands();
 
-        for (BrandDto brandDto : brandsDtos) {
+        for (BrandViewModel brandDto : brandsDtos) {
             System.out.println(brandDto);
         }
         System.out.println();
         System.out.println("Вывод всех моделей:");
-        List<ModelDto> modelDtos = modelService.getAllModels();
-        for (ModelDto modelDto:modelDtos){
+        List<ModelViewModel> modelDtos = modelService.getAllModels();
+        for (ModelViewModel modelDto:modelDtos){
             System.out.println(modelDto);
         }
         System.out.println();
         System.out.println();
         System.out.println("Вывод всех предложений:");
 
-        List<OfferDto> offerDtos = offerService.getAllOffers();
-        for (OfferDto offerDto : offerDtos) {
+        List<OfferViewModel> offerDtos = offerService.getAllOffers();
+        for (OfferViewModel offerDto : offerDtos) {
             System.out.println(offerDto);
         }
 
@@ -128,8 +132,8 @@ public class DataInitializer implements CommandLineRunner {
 
         System.out.println("Вывод всех пользователей:");
 
-        List<UserDto> userDtos = userService.getAllUsers();
-        for (UserDto userDto : userDtos) {
+        List<UserViewModel> userDtos = userService.getAllUsers();
+        for (UserViewModel userDto : userDtos) {
             System.out.println(userDto);
         }
 
@@ -163,7 +167,7 @@ public class DataInitializer implements CommandLineRunner {
 
 
         System.out.println("Пример обновления названия модели");
-        ModelDto updatedModelDto = new ModelDto();
+        ModelViewModel updatedModelDto = new ModelViewModel();
         updatedModelDto.setName("X6");
 
 //        ModelDto updatedModel = modelService.updateModelName(modelDto1.getId(), );

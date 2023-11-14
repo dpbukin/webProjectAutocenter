@@ -4,12 +4,13 @@ import com.example.projectwebautocenterbukin.services.dtos.UserRoleDto;
 import com.example.projectwebautocenterbukin.models.UserRole;
 import com.example.projectwebautocenterbukin.repositories.UserRoleRepository;
 import com.example.projectwebautocenterbukin.services.UserRoleService;
+import com.example.projectwebautocenterbukin.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.validation.ConstraintViolation;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -17,10 +18,12 @@ import java.util.stream.Collectors;
 public class UserRoleServiceImpl implements UserRoleService<UUID> {
 
     private UserRoleRepository userRoleRepository;
+
+    private final ValidationUtil validationUtil;
     private ModelMapper modelMapper;
     @Autowired
-    public UserRoleServiceImpl(UserRoleRepository userRoleRepository, ModelMapper modelMapper) {
-        this.userRoleRepository = userRoleRepository;
+    public UserRoleServiceImpl(ValidationUtil validationUtil, ModelMapper modelMapper) {
+        this.validationUtil = validationUtil;
         this.modelMapper = modelMapper;
     }
 
@@ -35,14 +38,32 @@ public class UserRoleServiceImpl implements UserRoleService<UUID> {
     }
 
     @Override
-    public UserRoleDto addUserRole(UserRoleDto userRoleDto) {
+    public void addUserRole(UserRoleDto userRoleDto) {
         userRoleDto.setId(UUID.randomUUID());
-        return modelMapper.map(userRoleRepository.save(modelMapper.map(userRoleDto, UserRole.class)), UserRoleDto.class);
+
+        if (!validationUtil.isValid(userRoleDto)) {
+            validationUtil
+                    .violations(userRoleDto)
+                    .stream()
+                    .map(ConstraintViolation::getMessage)
+                    .forEach(System.out::println);
+
+            throw new IllegalArgumentException("Illegal arguments!");
+        }
+
+        UserRole userRole = modelMapper.map(userRoleDto, UserRole.class);
+        UserRole savedUserRole = userRoleRepository.save(userRole);
+        modelMapper.map(savedUserRole, UserRoleDto.class);
     }
 
 
     @Override
     public void deleteUserRole(UUID userRoleId) {
         userRoleRepository.deleteById(userRoleId);
+    }
+
+    @Autowired
+    public void setUserRoleRepository(UserRoleRepository userRoleRepository) {
+        this.userRoleRepository = userRoleRepository;
     }
 }
