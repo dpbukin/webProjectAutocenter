@@ -9,25 +9,15 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-//@Inheritance(strategy=InheritanceType.JOINED)
 public class User extends BaseEntityCreatedModified {
-    private String username; //Имя пользователя
-    private String password; //Пароль
-    private String firstName; //Имя
-    private String lastName; //Фамилия
-    private boolean isActive; //Сатус
-    private String imageUrl; //URL изображения
-    private Set<Offer> offers; //Связь с объявлением
-    private UserRole role; //Роль пользователя (User or Admin)
-
-    public User(String username, String password, String firstName, String lastName, boolean isActive, String imageUrl) {
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.isActive = isActive;
-        this.imageUrl = imageUrl;
-    }
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private boolean isActive;
+    private String imageUrl;
+    private Set<Offer> offers;
+    private UserRole role;
 
     public User() {
     }
@@ -89,7 +79,6 @@ public class User extends BaseEntityCreatedModified {
     public void setRole(UserRole role) {
         this.role = role;
     }
-
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "seller")
     public Set<Offer> getOffers() {

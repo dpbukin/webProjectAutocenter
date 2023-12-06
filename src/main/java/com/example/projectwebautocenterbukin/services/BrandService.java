@@ -1,16 +1,16 @@
 package com.example.projectwebautocenterbukin.services;
 
+import com.example.projectwebautocenterbukin.models.Brand;
 import com.example.projectwebautocenterbukin.services.dtos.BrandDto;
-import com.example.projectwebautocenterbukin.views.BrandViewModel;
+import com.example.projectwebautocenterbukin.services.dto_views.ShowBrandVM;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface BrandService<ID> {
-    List<BrandViewModel> getAllBrands();
-    BrandViewModel getBrandById(ID brandId);
+public interface BrandService {
+    List<ShowBrandVM> getAllBrands();
     void addNewBrand(BrandDto brandDto);
-    void updateBrandName(ID brandId, String name);
-    void deleteBrand(ID brandId);
+    ShowBrandVM brandDetails(String brandName);
 
-
+    ShowBrandVM getBrandById(String id);
 }

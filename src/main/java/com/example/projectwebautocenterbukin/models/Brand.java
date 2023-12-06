@@ -1,17 +1,15 @@
 package com.example.projectwebautocenterbukin.models;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "brands")
 public class Brand extends BaseEntityCreatedModified {
-    private String name; //Наименование бренда
-    private Set<Model> model; //Связь с моделью
-
-    public Brand(String name) {
-        this.name = name;
-    }
+    private String name;
+    private Set<Model> model;
 
     public Brand() {
     }

@@ -1,10 +1,11 @@
-package com.example.projectwebautocenterbukin.views;
+package com.example.projectwebautocenterbukin.services.dto_views;
 
-public class UserViewModel {
-    private String username; // Имя пользователя
-    private String firstName; // Имя
-    private String lastName; // Фамилия
-    private String imageUrl; // URL изображения
+public class ShowUserVM {
+    private String username; //Имя пользователя
+    private String firstName; //Имя
+    private String lastName; //Фамилия
+    private String imageUrl; //URL изображения
+    private boolean isActive;
 
     public String getUsername() {
         return username;
@@ -38,13 +39,11 @@ public class UserViewModel {
         this.imageUrl = imageUrl;
     }
 
-    @Override
-    public String toString() {
-        return "UserViewModel{" +
-                "username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean active) {
+        isActive = active;
     }
 }

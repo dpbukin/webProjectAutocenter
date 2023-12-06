@@ -4,24 +4,22 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
+//https://1kevinson.com/why-using-uuid-instead-of-ids-in-your-java-project/
 
 @MappedSuperclass
 public abstract class BaseEntity {
-    private UUID id;
-
-    //https://1kevinson.com/why-using-uuid-instead-of-ids-in-your-java-project/
+    private String id;
 
     public BaseEntity() {
     }
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
-    public UUID getId() {
+    @GeneratedValue(strategy = GenerationType.UUID)
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

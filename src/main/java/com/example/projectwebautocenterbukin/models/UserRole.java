@@ -11,10 +11,6 @@ public class UserRole extends BaseEntity {
     private Role role;
     private Set<User> user;
 
-    public UserRole(Role role) {
-        this.role = role;
-    }
-
     public UserRole() {
     }
 

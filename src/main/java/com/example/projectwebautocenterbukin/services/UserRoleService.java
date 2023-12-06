@@ -1,12 +1,14 @@
 package com.example.projectwebautocenterbukin.services;
 
+import com.example.projectwebautocenterbukin.services.dto_views.ShowUserRoleVM;
 import com.example.projectwebautocenterbukin.services.dtos.UserRoleDto;
 
 import java.util.List;
 
-public interface UserRoleService<ID>{
+public interface UserRoleService{
     List<UserRoleDto> getAllUserRoles();
-    UserRoleDto getUserRoleById(ID userRoleId);
     void addUserRole(UserRoleDto userRoleDto);
-    void deleteUserRole(ID userRoleId);
+    ShowUserRoleVM userRoleDetails(String userRole);
+
+//    void deleteUserRole(ID userRoleId);
 }

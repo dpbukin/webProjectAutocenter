@@ -4,17 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 
 import java.time.LocalDateTime;
+//    now(ZoneId zone) получние метки времени в данный момент
+
 @MappedSuperclass
 public abstract class BaseEntityCreatedModified extends BaseEntity{
 
     private LocalDateTime created; //Дата и время создания
     private LocalDateTime modified; //Дата и время изменения
-
-//    now(ZoneId zone) получние метки времени в данный момент
-    public BaseEntityCreatedModified(LocalDateTime created, LocalDateTime modified) {
-        this.created = created;
-        this.modified = modified;
-    }
 
     public BaseEntityCreatedModified() {
     }

@@ -9,23 +9,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "models")
-//@Inheritance(strategy=InheritanceType.JOINED)
 public class Model extends BaseEntityCreatedModified {
-    private String name; //Имя модели
-    private Category category; //Категория Enum
-    private String imageUrl; //URl строка
+    private String name;
+    private Category category;
+    private String imageUrl;
     private int startYear;
     private int endYear;
     private Set<Offer> offers;
-    private Brand brand; //Бренд модели
-    public Model(String name, Category category, String imageUrl, int startYear, int endYear) {
-        this.name = name;
-        this.category = category;
-        this.imageUrl = imageUrl;
-        this.startYear = startYear;
-        this.endYear = endYear;
-    }
-
+    private Brand brand;
     public Model() {
     }
 

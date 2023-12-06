@@ -1,14 +1,14 @@
-package com.example.projectwebautocenterbukin.views;
+package com.example.projectwebautocenterbukin.services.dto_views;
 
 import com.example.projectwebautocenterbukin.models.enums.Category;
 
-public class ModelViewModel {
-
-    private String name; // Имя объекта
-    private Category category; // Категория объекта
-    private String imageUrl; // URL изображения
-    private int startYear; // Начальный год выпуска
-    private int endYear; // Конечный год выпуска
+public class ShowModelVM {
+    private String name; //Имя модели
+    private Category category; //Категория Enum
+    private String imageUrl; //URl строка
+    private int startYear;
+    private int endYear;
+    private ShowBrandVM brand;
 
     public String getName() {
         return name;
@@ -50,14 +50,12 @@ public class ModelViewModel {
         this.endYear = endYear;
     }
 
-    @Override
-    public String toString() {
-        return "ModelViewModel{" +
-                "name='" + name + '\'' +
-                ", category=" + category +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", startYear=" + startYear +
-                ", endYear=" + endYear +
-                '}';
+    public ShowBrandVM getBrand() {
+        return brand;
+    }
+
+    public void setBrand(ShowBrandVM brand) {
+        this.brand = brand;
     }
 }
+

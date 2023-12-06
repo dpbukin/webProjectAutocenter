@@ -1,14 +1,15 @@
 package com.example.projectwebautocenterbukin.services;
 
+import com.example.projectwebautocenterbukin.services.dtos.BrandDto;
 import com.example.projectwebautocenterbukin.services.dtos.ModelDto;
-import com.example.projectwebautocenterbukin.views.ModelViewModel;
+import com.example.projectwebautocenterbukin.services.dto_views.ShowModelVM;
 
 import java.util.List;
 
-public interface ModelService<ID> {
-    List<ModelViewModel> getAllModels();
-    ModelViewModel getModelById(ID modelId);
+public interface ModelService {
+
+    List<ShowModelVM> getAllModels();
     void addNewModel(ModelDto modelDto);
-    void updateModelName(ID modelId, String name);
-    void deleteModel(ID modelId);
+    ModelDto modelDetails(String modelName);
+    List<BrandDto> showBrand();
 }

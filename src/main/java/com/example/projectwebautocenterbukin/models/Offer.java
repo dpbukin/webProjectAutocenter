@@ -13,26 +13,15 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "offers")
 public class Offer extends BaseEntityCreatedModified {
-    private String description; //Описание
-    private Engine engine; //Тип двигателя Enum
-    private String image_url; //URL изображения
-    private int mileage; //Число
-    private BigDecimal price; //Стоимость
-    private Transmission transmission; //Тип трансмисии Enum
-    private int years; //Год выпуска
-    private Model model; //Модель авто
-    private User seller; //Продавец
-
-
-    public Offer(String description, Engine engine, String image_url, int mileage, BigDecimal price, Transmission transmission, int years) {
-        this.description = description;
-        this.engine = engine;
-        this.image_url = image_url;
-        this.mileage = mileage;
-        this.price = price;
-        this.transmission = transmission;
-        this.years = years;
-    }
+    private String description;
+    private Engine engine;
+    private String image_url;
+    private int mileage;
+    private BigDecimal price;
+    private Transmission transmission;
+    private int years;
+    private Model model;
+    private User seller;
 
     public Offer() {
     }
@@ -106,7 +95,6 @@ public class Offer extends BaseEntityCreatedModified {
     }
     @ManyToOne(optional = false)
     @JoinColumn(name = "seller_id", referencedColumnName = "id", nullable=false)
-//    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     public User getSeller() {
         return seller;
     }

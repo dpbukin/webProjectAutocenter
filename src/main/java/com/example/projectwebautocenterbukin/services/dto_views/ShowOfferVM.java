@@ -1,14 +1,12 @@
-package com.example.projectwebautocenterbukin.views;
+package com.example.projectwebautocenterbukin.services.dto_views;
 
-import com.example.projectwebautocenterbukin.models.Model;
-import com.example.projectwebautocenterbukin.models.User;
 import com.example.projectwebautocenterbukin.models.enums.Engine;
 import com.example.projectwebautocenterbukin.models.enums.Transmission;
+import com.example.projectwebautocenterbukin.services.dtos.ModelDto;
 
 import java.math.BigDecimal;
 
-public class OfferViewModel {
-
+public class ShowOfferVM {
     private String description; // Описание
     private Engine engine; // Двигатель
     private String image_url; // URL изображения
@@ -16,7 +14,8 @@ public class OfferViewModel {
     private BigDecimal price; // Цена
     private Transmission transmission; // Тип трансмиссии
     private int years; // Годы выпуска
-
+    private ShowModelVM model;
+    private ShowUserVM seller;
 
     public String getDescription() {
         return description;
@@ -74,16 +73,19 @@ public class OfferViewModel {
         this.years = years;
     }
 
-    @Override
-    public String toString() {
-        return "OfferViewModel{" +
-                "description='" + description + '\'' +
-                ", engine=" + engine +
-                ", image_url='" + image_url + '\'' +
-                ", mileage=" + mileage +
-                ", price=" + price +
-                ", transmission=" + transmission +
-                ", years=" + years +
-                '}';
+    public ShowModelVM getModel() {
+        return model;
+    }
+
+    public void setModel(ShowModelVM model) {
+        this.model = model;
+    }
+
+    public ShowUserVM getSeller() {
+        return seller;
+    }
+
+    public void setSeller(ShowUserVM seller) {
+        this.seller = seller;
     }
 }
