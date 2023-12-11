@@ -18,7 +18,7 @@
                       class="m-md-auto w-50 pb-3">
 
                     <div class="mb-3">
-                        <label class="form-label" for="username">User Name</label>
+                        <label class="form-label" for="username">Имя пользователя</label>
                         <input th:field="*{username}"
                                th:errorclass="is-invalid"
                                type="text" class="form-control text-center"
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="password">Password</label>
+                        <label class="form-label" for="password">Пароль</label>
                         <input th:field="*{password}"
                                th:errorclass="is-invalid"
                                type="password" class="form-control text-center"
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="firstName">First Name</label>
+                        <label class="form-label" for="firstName">Имя</label>
                         <input th:field="*{firstName}"
                                th:errorclass="is-invalid"
                                type="text" class="form-control text-center"
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="lastName">Last Name</label>
+                        <label class="form-label" for="lastName">Фамилия</label>
                         <input th:field="*{lastName}"
                                th:errorclass="is-invalid"
                                type="text" class="form-control text-center"
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="imageUrl">ImageUrl</label>
+                        <label class="form-label" for="imageUrl">Изображение</label>
                         <input th:field="*{imageUrl}"
                                th:errorclass="is-invalid" type="text" class="form-control text-center"
                                id="imageUrl" aria-describedby="imageUrl" name="imageUrl"/>
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="role"><h5>All available roles</h5></label>
+                        <label class="form-label" for="role"><h5>Все доступные роли</h5></label>
                         <select class="form-control text-center" id="role" name="role" th:field="*{role}">
                             <option th:each="r : ${availableRole}"
                                     th:value="${r.role}"

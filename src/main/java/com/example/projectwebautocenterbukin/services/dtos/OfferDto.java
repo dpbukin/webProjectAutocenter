@@ -36,7 +36,7 @@ public class OfferDto{
         this.id = id;
     }
 
-    @Length(min = 10, message = "Brand name must be more than ten characters!")
+    @Length(min = 10, message = "Description must be more than ten characters!")
     public String getDescription() {
         return description;
     }

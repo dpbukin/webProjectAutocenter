@@ -15,9 +15,13 @@
                         <h4 th:text="'Full name: ' + *{u.firstName} + ' ' + *{u.lastName}"></h4>
                         <h4 th:text="'ImageUrl: ' + *{u.imageUrl}"></h4>
                         <h4 th:text="'isActive: ' + *{u.isActive}"></h4>
-                        <form th:action="@{'/deactivateuser/' + ${u.username}}" method="post">
-                            <button type="submit" class="btn btn-danger">Deactivate</button>
-                        </form>
+                        <h4 th:text="'Role: ' + *{u.role}"></h4>
+
+                        <div class="align-bottom">
+                            <a class="btn btn-danger align-bottom" th:href="@{/users/deactivate_user/{username}(username=${u.username})}">
+                                Deactivate
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

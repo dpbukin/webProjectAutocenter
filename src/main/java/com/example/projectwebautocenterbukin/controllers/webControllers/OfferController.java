@@ -55,10 +55,10 @@ public class OfferController {
         return "redirect:/";
     }
 
-    @GetMapping("/activeclients")
+    @GetMapping("/active_offers")
     public String OffersWithActiveClients(Model model) {
         model.addAttribute("offerInfosActive", offerService.findOffersWithActiveClients());
-        return "activeclients";
+        return "active_clients";
     }
 
 

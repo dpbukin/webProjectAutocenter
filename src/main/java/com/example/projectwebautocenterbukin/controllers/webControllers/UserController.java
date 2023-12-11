@@ -27,7 +27,6 @@ public class UserController {
     @GetMapping("/all")
     public String showAllUser(Model model){
         model.addAttribute("userInfos", userService.getAllUsers());
-
         return "users-all";
     }
 
@@ -63,13 +62,10 @@ public class UserController {
         return "redirect:/";
     }
 
-
-    @PostMapping("/deactivateuser/{username}")
+    @GetMapping("/deactivate_user/{username}")
     public String deactivateUser(@PathVariable String username) {
         userService.deactivateUser(username);
-        return "redirect:/";
+        return "redirect:/users/all";
     }
-
-
 }
 

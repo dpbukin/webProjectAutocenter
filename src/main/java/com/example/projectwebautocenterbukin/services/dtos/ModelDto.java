@@ -16,7 +16,7 @@ public class ModelDto{
     public ModelDto() {
     }
 
-    @NotEmpty(message = "Company name must not be null or empty!")
+    @NotEmpty(message = "Model name must not be null or empty!")
     @Size(min = 2, message = "name must be more than two characters!")
     public String getName() {
         return name;
