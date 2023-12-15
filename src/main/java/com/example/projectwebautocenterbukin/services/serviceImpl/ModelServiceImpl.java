@@ -39,16 +39,6 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public void addNewModel(ModelDto modelDto) {
-        if (!validationUtil.isValid(modelDto)) {
-            validationUtil
-                    .violations(modelDto)
-                    .stream()
-                    .map(ConstraintViolation::getMessage)
-                    .forEach(System.out::println);
-
-            throw new IllegalArgumentException("Illegal arguments!");
-        }
-
         Model model = modelMapper.map(modelDto, Model.class);
         model.setBrand(brandRepository.findByName(modelDto.getBrand()).orElseThrow());
         model.setCreated(LocalDateTime.now());

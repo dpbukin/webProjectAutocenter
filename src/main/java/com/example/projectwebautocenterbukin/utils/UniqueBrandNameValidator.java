@@ -1,9 +1,9 @@
 package com.example.projectwebautocenterbukin.utils;
 
+
 import com.example.projectwebautocenterbukin.repositories.BrandRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class UniqueBrandNameValidator implements ConstraintValidator<UniqueBrandName, String> {
 

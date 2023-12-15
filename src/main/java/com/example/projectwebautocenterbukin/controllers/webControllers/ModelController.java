@@ -24,8 +24,6 @@ import java.util.List;
 public class ModelController {
     @Autowired
     private ModelService modelService;
-    @Autowired
-    private BrandService brandService;
 
     public ModelController(ModelService modelService) {
         this.modelService = modelService;
@@ -35,12 +33,6 @@ public class ModelController {
     public String showAllModels(Model model){
         model.addAttribute("modelInfos", modelService.getAllModels());
         return "models-all";
-    }
-
-    @GetMapping("/model-details/{model-name}")
-    public String modelDetails(@PathVariable("model-name") String modelName, Model model) {
-        model.addAttribute("modelDetails", modelService.modelDetails(modelName));
-        return "model-details";
     }
 
     @GetMapping("/add")

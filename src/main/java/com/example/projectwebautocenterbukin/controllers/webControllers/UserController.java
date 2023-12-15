@@ -30,13 +30,6 @@ public class UserController {
         return "users-all";
     }
 
-    @GetMapping("/user-details/{username}")
-    public String userDetails(@PathVariable("username") String userName, Model model) {
-        model.addAttribute("brandDetails", userService.userDetails(userName));
-
-        return "user-details";
-    }
-
     @GetMapping("/add")
     public String addUser(Model model) {
         model.addAttribute("availableRole", userService.showRole());

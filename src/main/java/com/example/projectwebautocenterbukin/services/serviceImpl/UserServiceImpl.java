@@ -33,39 +33,18 @@ public class UserServiceImpl implements UserService {
         this.modelMapper = modelMapper;
     }
 
-
-
-
     @Override
     public List<ShowUserVM> getAllUsers() {
         return userRepository.findAll().stream().map(user -> modelMapper.map(user, ShowUserVM.class)).collect(Collectors.toList());
     }
     @Override
     public void addUser(UserDto userDto) {
-        try {
-            if (!validationUtil.isValid(userDto)) {
-                validationUtil
-                        .violations(userDto)
-                        .stream()
-                        .map(ConstraintViolation::getMessage)
-                        .forEach(System.out::println);
-
-                throw new IllegalArgumentException("Illegal arguments!");
-            }
-
-
             User user = modelMapper.map(userDto, User.class);
             user.setRole(userRoleRepository.findByRole(userDto.getRole()).orElseThrow());
             user.setIsActive(true);
             user.setCreated(LocalDateTime.now());
             user.setModified(LocalDateTime.now());
             userRepository.saveAndFlush(user);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-
-        }
     }
 
     @Override

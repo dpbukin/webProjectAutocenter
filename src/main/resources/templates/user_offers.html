@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
+                <h2 class="text-center text-dark mt-5">Мои предложения</h2>
+                <div th:each="o : ${offersUserInfos}" class="d-flex flex-row bg-text mb-3" style="border: 1px solid #383838; text-align: left;">
+                    <img th:src="${o.image_url}" alt="Image" class="img-fluid mx-2" style="max-width: 300px; max-height: 200px;"/>
+                    <div class="d-flex flex-column mx-2">
+                        <h4 th:text="'Описание: ' + ${o.description}"></h4>
+                        <h4 th:text="'Двигатель: ' + ${o.engine}"></h4>
+                        <h4 th:text="'Пробег: ' + ${o.mileage}"></h4>
+                        <h4 th:text="'Стоимость: ' + ${o.price}"></h4>
+                        <h4 th:text="'Трансмиссия: ' + ${o.transmission}"></h4>
+                        <h4 th:text="'Год: ' + ${o.years}"></h4>
+                        <h4 th:text="'Модель: ' + ${o.model.name}"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

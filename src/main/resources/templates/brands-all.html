@@ -8,10 +8,10 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
-                <h2 class="text-center text-dark mt-5">All brands</h2>
+                <h2 class="text-center text-dark mt-5">Список брендов</h2>
                 <div class='row mb-4 d-flex justify-content-around'>
-                    <div th:each="b : ${brandInfos}" class="col-md-4 d-flex flex-column bg-text mb-3 rounded">
-                        <h4 th:text="'Name: ' + *{b.name}"></h4>
+                    <div th:each="b : ${brandInfos}" class="col-md-4 d-flex flex-column bg-text mb-3 rounded" style="border: 1px solid #383838; text-align: center;">
+                        <h4 th:text="'Имя бренда: ' + *{b.name}"></h4>
                     </div>
                 </div>
             </div>

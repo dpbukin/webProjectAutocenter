@@ -7,6 +7,7 @@ import com.example.projectwebautocenterbukin.services.dtos.ModelDto;
 import java.math.BigDecimal;
 
 public class ShowOfferVM {
+    private String id;
     private String description; // Описание
     private Engine engine; // Двигатель
     private String image_url; // URL изображения
@@ -16,6 +17,14 @@ public class ShowOfferVM {
     private int years; // Годы выпуска
     private ShowModelVM model;
     private ShowUserVM seller;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;

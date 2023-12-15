@@ -13,7 +13,6 @@ import com.example.projectwebautocenterbukin.services.dto_views.ShowOfferVM;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.validation.ConstraintViolation;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,7 +23,6 @@ public class OfferServiceImpl implements OfferService {
     private OfferRepository offerRepository;
     private ModelRepository modelRepository;
     private UserRepository userRepository;
-
     private final ValidationUtil validationUtil;
     private ModelMapper modelMapper;
     @Autowired
@@ -43,16 +41,6 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public void addNewOffer(OfferDto offerDto) {
-        if (!validationUtil.isValid(offerDto)) {
-            validationUtil
-                    .violations(offerDto)
-                    .stream()
-                    .map(ConstraintViolation::getMessage)
-                    .forEach(System.out::println);
-
-            throw new IllegalArgumentException("Illegal arguments!");
-        }
-
         Offer offer = modelMapper.map(offerDto, Offer.class);
         offer.setModel(modelRepository.findByName(offerDto.getModel()).orElseThrow());
         offer.setSeller(userRepository.findByUsername(offerDto.getSeller()).orElseThrow());
@@ -60,11 +48,6 @@ public class OfferServiceImpl implements OfferService {
         offer.setCreated(LocalDateTime.now());
         offer.setModified(LocalDateTime.now());
         this.offerRepository.saveAndFlush(offer);
-    }
-
-    @Override
-    public ShowOfferVM offerDetails(String offerID) {
-        return modelMapper.map(offerRepository.findById(offerID), ShowOfferVM.class);
     }
 
     @Override
@@ -80,10 +63,39 @@ public class OfferServiceImpl implements OfferService {
     public List<ShowOfferVM> findOffersByBrandName(String brandName) {
         return offerRepository.findOffersByBrandName(brandName).stream().map(offer -> modelMapper.map(offer, ShowOfferVM.class)).collect(Collectors.toList());
     }
+    @Override
+    public ShowOfferVM offerDetails(String offerID) {
+        return modelMapper.map(offerRepository.findById(offerID), ShowOfferVM.class);
+    }
 
     @Override
     public List<ShowOfferVM> findOffersWithActiveClients() {
         return offerRepository.findOffersWithActiveClients().stream().map(offer -> modelMapper.map(offer, ShowOfferVM.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ShowOfferVM> findOffersBySellerUsername(String username) {
+        return offerRepository.findOffersBySellerUsername(username).stream().map(offer -> modelMapper.map(offer, ShowOfferVM.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ShowOfferVM> findAllByOrderByPriceAsc() {
+        return offerRepository.findAllByOrderByPriceAsc().stream().map(offer -> modelMapper.map(offer, ShowOfferVM.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ShowOfferVM> findAllByOrderByPriceDesc() {
+        return offerRepository.findAllByOrderByPriceDesc().stream().map(offer -> modelMapper.map(offer, ShowOfferVM.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteOfferById(String id) {
+        offerRepository.deleteById(id);
+    }
+
+    @Override
+    public OfferDto getOfferById(String id) {
+        return modelMapper.map(offerRepository.findById(id), OfferDto.class);
     }
 
 

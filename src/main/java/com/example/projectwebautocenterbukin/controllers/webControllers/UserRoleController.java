@@ -28,13 +28,6 @@ public class UserRoleController {
         model.addAttribute("userRoleInfos", userRoleService.getAllUserRoles());
         return "userRoles-all";
     }
-
-    @GetMapping("/userRole-details/{userRole}")
-    public String brandDetails(@PathVariable("userRole") String userRole, Model model) {
-        model.addAttribute("userRoleDetails", userRoleService.userRoleDetails(userRole));
-
-        return "userRole-details";
-    }
     @GetMapping("/add")
     public String addUserRole() {
         return "userRole-add";
@@ -56,5 +49,4 @@ public class UserRoleController {
 
         return "redirect:/";
     }
-
 }

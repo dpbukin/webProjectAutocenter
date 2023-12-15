@@ -31,16 +31,6 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public void addUserRole(UserRoleDto userRoleDto) {
-        if (!validationUtil.isValid(userRoleDto)) {
-            validationUtil
-                    .violations(userRoleDto)
-                    .stream()
-                    .map(ConstraintViolation::getMessage)
-                    .forEach(System.out::println);
-
-            throw new IllegalArgumentException("Illegal arguments!");
-        }
-
         UserRole userRole = modelMapper.map(userRoleDto, UserRole.class);
         UserRole savedUserRole = userRoleRepository.save(userRole);
         modelMapper.map(savedUserRole, UserRoleDto.class);

@@ -8,17 +8,21 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
-                <h2 class="text-center text-dark mt-5">All offers</h2>
-                <div th:each="o : ${offerInfos}" class="d-flex flex-column bg-text mb-3">
-                    <h4 th:text="'Description: ' + ${o.description}"></h4>
-                    <h4 th:text="'Engine: ' + ${o.engine}"></h4>
-                    <h4 th:text="'Image_url: ' + ${o.image_url}"></h4>
-                    <h4 th:text="'Mileage: ' + ${o.mileage}"></h4>
-                    <h4 th:text="'Price: ' + ${o.price}"></h4>
-                    <h4 th:text="'Transmission: ' + ${o.transmission}"></h4>
-                    <h4 th:text="'Year: ' + ${o.years}"></h4>
-                    <h4 th:text="'Model: ' + ${o.model.name}"></h4>
-                    <h4 th:text="'Seller: ' + ${o.seller.username}"></h4>
+                <h2 class="text-center text-dark mt-5">Список всех предложений</h2>
+                <div th:each="o : ${offerInfos}" class="d-flex flex-column bg-text mb-3" style="border: 1px solid #383838; text-align: center;">
+                    <img th:src="${o.image_url}" alt="Image" class="img-fluid mx-auto" style="max-width: 300px; max-height: 200px;"/>
+                    <h4 th:text="'Описание: ' + ${o.description}"></h4>
+                    <h4 th:text="'Двигатель: ' + ${o.engine}"></h4>
+                    <h4 th:text="'Пробег: ' + ${o.mileage}"></h4>
+                    <h4 th:text="'Стоимость: ' + ${o.price}"></h4>
+                    <h4 th:text="'Трансмиссия: ' + ${o.transmission}"></h4>
+                    <h4 th:text="'Год: ' + ${o.years}"></h4>
+                    <h4 th:text="'Модель: ' + ${o.model.name}"></h4>
+                    <h4 th:text="'Продавец: ' + ${o.seller.username}"></h4>
+<!--                    <h4><a class="btn-block" th:href="@{/offers/details/{id}(id=${o.getId()})}">Detail-->
+<!--                        info</a></h4>-->
+
+<!--                    "@{/users/deactivate_user/{username}(username=${u.username})}"-->
                 </div>
             </div>
         </div>

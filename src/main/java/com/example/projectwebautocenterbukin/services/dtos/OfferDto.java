@@ -108,7 +108,7 @@ public class OfferDto{
     public void setModel(String model) {
         this.model = model;
     }
-    @NotBlank(message = "Seller must be selected")
+
     public String getSeller() {
         return seller;
     }

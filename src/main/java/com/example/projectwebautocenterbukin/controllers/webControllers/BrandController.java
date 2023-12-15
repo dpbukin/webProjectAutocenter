@@ -26,12 +26,7 @@ public class BrandController {
 
         return "brands-all";
     }
-    @GetMapping("/brand-details/{brand-name}")
-    public String brandDetails(@PathVariable("brand-name") String brandName, Model model) {
-        model.addAttribute("brandDetails", brandService.brandDetails(brandName));
 
-        return "brand-details";
-    }
     @GetMapping("/add")
     public String addBrand() {
         return "brand-add";

@@ -8,15 +8,15 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
-                <h2 class="text-center text-dark mt-5">All models</h2>
+                <h2 class="text-center text-dark mt-5">Список моделей</h2>
                 <div class='row mb-4 d-flex justify-content-around'>
-                    <div th:each="m : ${modelInfos}" class="col-md-4 d-flex flex-column bg-text mb-3 rounded">
-                        <h4 th:text="'Name: ' + *{m.name}"></h4>
-                        <h4 th:text="'Category: ' + *{m.category}"></h4>
-                        <h4 th:text="'imageUrl: ' + *{m.imageUrl}"></h4>
-                        <h4 th:text="'StartYear: ' + *{m.startYear}"></h4>
-                        <h4 th:text="'EndYear: ' + *{m.endYear}"></h4>
-                        <h4 th:text="'brand: ' + *{m.brand.name}"></h4>
+                    <div th:each="m : ${modelInfos}" class="col-md-4 d-flex flex-column bg-text mb-3 rounded" style="border: 1px solid #383838; text-align: center;">
+                        <img th:src="${m.imageUrl}" alt="Image" class="img-fluid mx-auto" style="max-width: 250px; max-height: 250px;"/>
+                        <h4 th:text="'Название: ' + *{m.name}"></h4>
+                        <h4 th:text="'Категория: ' + *{m.category}"></h4>
+                        <h4 th:text="'Год начала выпуска: ' + *{m.startYear}"></h4>
+                        <h4 th:text="'Год окончания выпуска: ' + *{m.endYear}"></h4>
+                        <h4 th:text="'Бренд: ' + *{m.brand.name}"></h4>
 
                     </div>
                 </div>

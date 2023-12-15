@@ -13,10 +13,14 @@ public interface OfferRepository extends JpaRepository<Offer, String> {
     @Query("SELECT o FROM Offer o WHERE o.seller.isActive = true")
     List<Offer> findOffersWithActiveClients();
 
-    @Query("SELECT o " +
-            "FROM Offer o " +
-            "JOIN o.model m " +
-            "JOIN m.brand b " +
-            "WHERE b.name = :brandName")
+    @Query("SELECT o FROM Offer o JOIN o.model m JOIN m.brand b WHERE b.name = :brandName")
     List<Offer> findOffersByBrandName(String brandName);
+
+    @Query("SELECT o FROM Offer o JOIN o.seller u WHERE u.username = :username")
+    List<Offer> findOffersBySellerUsername(String username);
+    List<Offer> findAllByOrderByPriceAsc();
+    List<Offer> findAllByOrderByPriceDesc();
+
+
+
 }

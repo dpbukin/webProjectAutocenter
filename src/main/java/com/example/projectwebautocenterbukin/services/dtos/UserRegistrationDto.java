@@ -2,23 +2,19 @@ package com.example.projectwebautocenterbukin.services.dtos;
 
 import com.example.projectwebautocenterbukin.models.enums.Role;
 import com.example.projectwebautocenterbukin.utils.UniqueUsername;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 
-public class UserDto{
+public class UserRegistrationDto {
     @UniqueUsername
     private String username;
-    private String password;
     private String firstName;
     private String lastName;
-    private boolean isActive;
     private String imageUrl;
-    private Role role;
-
-    public UserDto() {
-    }
+    private String password;
+    private String confirmPassword;
 
     @NotEmpty(message = "The username cannot be empty")
     @Length(min = 2, message = "Username must be more than two characters and not use special characters!")
@@ -58,27 +54,21 @@ public class UserDto{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public boolean getIsActive() {
-        return isActive;
+    @NotEmpty(message = "Confirm Password cannot be null or empty!")
+    @Size(min = 5, max = 20)
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setIsActive(boolean active) {
-        isActive = active;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
-    @NotEmpty(message = "The imageUrl cannot be empty")
+
     public String getImageUrl() {
         return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-    @NotNull(message = "Role must be selected")
-    public Role getRole() {
-        return role;
-    }
-    public void setRole(Role role) {
-        this.role = role;
     }
 }

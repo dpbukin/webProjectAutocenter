@@ -11,6 +11,5 @@ public interface BrandService {
     List<ShowBrandVM> getAllBrands();
     void addNewBrand(BrandDto brandDto);
     ShowBrandVM brandDetails(String brandName);
-
     ShowBrandVM getBrandById(String id);
 }

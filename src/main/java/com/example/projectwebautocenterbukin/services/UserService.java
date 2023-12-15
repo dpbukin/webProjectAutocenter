@@ -10,11 +10,7 @@ public interface UserService {
     List<ShowUserVM> getAllUsers();
     void addUser(UserDto addUserVM);
     ShowUserVM userDetails(String userName);
-
     List<UserRoleDto> showRole();
-
-//    void updateUserPassword(ID userId, String password);
-//    void deleteUser(ID userId);
 
     void deactivateUser(String username);
 }

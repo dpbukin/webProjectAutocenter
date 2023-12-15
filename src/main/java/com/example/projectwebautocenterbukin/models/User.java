@@ -1,15 +1,13 @@
 package com.example.projectwebautocenterbukin.models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntityCreatedModified {
+public class User extends BaseEntityCreatedModified implements Serializable {
     private String username;
     private String password;
     private String firstName;
@@ -34,7 +32,6 @@ public class User extends BaseEntityCreatedModified {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
