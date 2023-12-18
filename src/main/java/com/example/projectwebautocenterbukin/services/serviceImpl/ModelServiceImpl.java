@@ -10,6 +10,9 @@ import com.example.projectwebautocenterbukin.utils.ValidationUtil;
 import com.example.projectwebautocenterbukin.services.dto_views.ShowModelVM;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import jakarta.validation.ConstraintViolation;
 
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@EnableCaching
 public class ModelServiceImpl implements ModelService {
     private ModelRepository modelRepository;
     private BrandRepository brandRepository;
@@ -33,11 +37,13 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
+    @Cacheable("models")
     public List<ShowModelVM> getAllModels() {
         return modelRepository.findAll().stream().map(models -> modelMapper.map(models, ShowModelVM.class)).collect(Collectors.toList());
     }
 
     @Override
+    @CacheEvict(cacheNames = "models", allEntries = true)
     public void addNewModel(ModelDto modelDto) {
         Model model = modelMapper.map(modelDto, Model.class);
         model.setBrand(brandRepository.findByName(modelDto.getBrand()).orElseThrow());

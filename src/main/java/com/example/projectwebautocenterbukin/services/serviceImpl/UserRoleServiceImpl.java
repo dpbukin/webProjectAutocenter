@@ -9,6 +9,7 @@ import com.example.projectwebautocenterbukin.services.UserRoleService;
 import com.example.projectwebautocenterbukin.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import jakarta.validation.ConstraintViolation;
 

@@ -8,6 +8,9 @@ import com.example.projectwebautocenterbukin.services.dto_views.ShowBrandVM;
 import jakarta.validation.ConstraintViolation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import com.example.projectwebautocenterbukin.repositories.BrandRepository;
 
@@ -16,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@EnableCaching
 public class BrandServiceImpl implements BrandService {
 
     private BrandRepository brandRepository;
@@ -30,11 +34,13 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
+    @Cacheable("brands")
     public List<ShowBrandVM> getAllBrands() {
         return this.brandRepository.findAll().stream().map(brand -> modelMapper.map(brand, ShowBrandVM.class)).collect(Collectors.toList());
     }
 
     @Override
+    @CacheEvict(cacheNames = "brands", allEntries = true)
     public void addNewBrand(BrandDto brandDto) {
         if (!this.validationUtil.isValid(brandDto)) {
 

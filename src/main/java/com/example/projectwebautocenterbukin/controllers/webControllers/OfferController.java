@@ -7,6 +7,9 @@ import com.example.projectwebautocenterbukin.services.dto_views.UserProfileView;
 import com.example.projectwebautocenterbukin.services.dtos.OfferDto;
 import com.example.projectwebautocenterbukin.services.serviceImpl.AuthService;
 import jakarta.validation.Valid;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,8 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/offers")
 public class OfferController {
+
+    private static final Logger LOG = LogManager.getLogger(Controller.class);
     @Autowired
     private OfferService offerService;
     @Autowired
@@ -31,7 +36,8 @@ public class OfferController {
     }
 
     @GetMapping("/all")
-    public String showAllOffers(Model model){
+    public String showAllOffers(Principal principal, Model model){
+        LOG.log(Level.INFO, "Show all offers for " + principal.getName());
         model.addAttribute("offerInfos", offerService.getAllOffers());
         return "offers-all";
     }
@@ -58,17 +64,21 @@ public class OfferController {
         offerDto.setSeller(principal.getName());
         offerService.addNewOffer(offerDto);
 
+        LOG.log(Level.INFO, "Add new offer for " + principal.getName());
+
         return "redirect:/";
     }
 
     @GetMapping("/active_offers")
-    public String OffersWithActiveClients(Model model) {
+    public String OffersWithActiveClients(Principal principal, Model model) {
+        LOG.log(Level.INFO, "Show all active offers for " + principal.getName());
         model.addAttribute("offerInfosActive", offerService.findOffersWithActiveClients());
         return "active_clients";
     }
 
     @GetMapping("/my_offers")
     public String showMyOffers(Principal principal, Model model){
+        LOG.log(Level.INFO, "Show my all offers for " + principal.getName());
         String username = principal.getName();
         model.addAttribute("offersUserInfos", offerService.findOffersBySellerUsername(username));
         return "user_offers";
@@ -80,13 +90,15 @@ public class OfferController {
     }
 
     @GetMapping("/sorted/asc")
-    public String getSortedOffersAsc(Model model) {
+    public String getSortedOffersAsc(Principal principal, Model model) {
+        LOG.log(Level.INFO, "Looked through the sorted offers for " + principal.getName());
         model.addAttribute("offerInfosActive", offerService.findAllByOrderByPriceAsc());
         return "active_clients";
     }
 
     @GetMapping("/sorted/desc")
-    public String getSortedOffersDesc(Model model) {
+    public String getSortedOffersDesc(Principal principal, Model model) {
+        LOG.log(Level.INFO, "Looked through the sorted offers for " + principal.getName());
         model.addAttribute("offerInfosActive", offerService.findAllByOrderByPriceDesc());
         return "active_clients";
     }

@@ -10,8 +10,11 @@ import com.example.projectwebautocenterbukin.utils.ValidationUtil;
 import com.example.projectwebautocenterbukin.services.dto_views.ShowUserVM;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
-import jakarta.validation.ConstraintViolation;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +22,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@EnableCaching
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
@@ -34,10 +38,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable("users")
     public List<ShowUserVM> getAllUsers() {
         return userRepository.findAll().stream().map(user -> modelMapper.map(user, ShowUserVM.class)).collect(Collectors.toList());
     }
     @Override
+    @CacheEvict(cacheNames = "users", allEntries = true)
     public void addUser(UserDto userDto) {
             User user = modelMapper.map(userDto, User.class);
             user.setRole(userRoleRepository.findByRole(userDto.getRole()).orElseThrow());
@@ -57,6 +63,7 @@ public class UserServiceImpl implements UserService {
         return userRoleRepository.findAll().stream().map(userRole -> modelMapper.map(userRole, UserRoleDto.class)).collect(Collectors.toList());
     }
     @Override
+    @CacheEvict(cacheNames = "users", allEntries = true)
     public void deactivateUser(String username) {
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {

@@ -12,6 +12,9 @@ import com.example.projectwebautocenterbukin.utils.ValidationUtil;
 import com.example.projectwebautocenterbukin.services.dto_views.ShowOfferVM;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@EnableCaching
 public class OfferServiceImpl implements OfferService {
     private OfferRepository offerRepository;
     private ModelRepository modelRepository;
@@ -35,11 +39,13 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    @Cacheable("offers")
     public List<ShowOfferVM> getAllOffers() {
         return offerRepository.findAll().stream().map(offer -> modelMapper.map(offer, ShowOfferVM.class)).collect(Collectors.toList());
     }
 
     @Override
+    @CacheEvict(cacheNames = "offers", allEntries = true)
     public void addNewOffer(OfferDto offerDto) {
         Offer offer = modelMapper.map(offerDto, Offer.class);
         offer.setModel(modelRepository.findByName(offerDto.getModel()).orElseThrow());

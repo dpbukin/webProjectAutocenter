@@ -10,6 +10,9 @@ import com.example.projectwebautocenterbukin.services.dtos.ModelDto;
 import com.example.projectwebautocenterbukin.services.dtos.UserDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +20,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 @RequestMapping("/models")
 public class ModelController {
+
+    private static final Logger LOG = LogManager.getLogger(Controller.class);
     @Autowired
     private ModelService modelService;
 
@@ -30,7 +36,8 @@ public class ModelController {
     }
 
     @GetMapping("/all")
-    public String showAllModels(Model model){
+    public String showAllModels(Principal principal, Model model){
+        LOG.log(Level.INFO, "Show all models for " + principal.getName());
         model.addAttribute("modelInfos", modelService.getAllModels());
         return "models-all";
     }
@@ -46,7 +53,7 @@ public class ModelController {
         return new ModelDto();
     }
     @PostMapping("/add")
-    public String addModel(@Valid ModelDto modelDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String addModel(@Valid ModelDto modelDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Principal principal){
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("modelModel", modelDto);
@@ -55,6 +62,8 @@ public class ModelController {
             return "redirect:/models/add";
         }
         modelService.addNewModel(modelDto);
+
+        LOG.log(Level.INFO, "Add new model for " + principal.getName());
 
         return "redirect:/";
     }
